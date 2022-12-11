@@ -1,0 +1,9 @@
+.cards__title {
+  width: 219px;
+  display: inline-block;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+  color: black;
+  margin: 0 0 0 25px;
+}
