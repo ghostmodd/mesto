@@ -12,5 +12,6 @@
 * JavaScript
 * Git
 
+**Ссылки**
 * [Ссылка на макет в Figma](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?t=Fooi3O8doJLq40y3-0)
 * [Ссылка на GitHub Pages](https://ghostmodd.github.io/mesto/)
