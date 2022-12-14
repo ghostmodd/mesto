@@ -18,7 +18,8 @@ function addValuePopup() {
 
 // показать или скрыть форму
 function callPopup() {
-  console.log(popup.classList.toggle('popup_opened'));
+  debugger
+  popup.classList.toggle('popup_opened');
 };
 
 // отправка формы
@@ -44,7 +45,6 @@ function ifHotKeyPressedPopup(evt) {
   }
 
   else if (popup.classList.contains('popup_opened') && evt.key === 'Escape') {
-    console.log(evt.key === 'Escape');
     callPopup();
   }
 };
