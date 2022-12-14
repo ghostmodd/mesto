@@ -33,7 +33,6 @@ function submitPopup(evt) {
 // думаю, в будущем смогу оптимизировать с помощью асинхронного программирования. поставить бы
 // цикл какой-нибудь, чтоб Listener ловил события только если popup открыт
 function ifHotKeyPressedPopup(evt) {
-  debugger
   if (popup.classList.contains('popup_opened') && evt.key === 'Enter') {
     userName.textContent = userNameInput.value;
     userAbout.textContent = userAboutInput.value;
