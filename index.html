@@ -17,70 +17,83 @@
     <div class="profile__content">
       <img class="profile__avatar" src="images/profile__avatar.jpg" alt="Изображение профиля пользователя">
       <div class="profile__user-data">
-        <h1 class="profile__user-name">Жак-Ив Кусто</h1>
-        <button class="button button_place_user-data button_type_edit-profile"></button>
-        <p class="profile__about-user">Исследователь океана</p>
+        <h1 class="profile__user-name anti-overflow">Жак-Ив Кусто</h1>
+        <button class="profile__btn-edit-profile button opacity-dim opacity-dim_low" aria-label="Редактировать профиль"></button>
+        <p class="profile__about-user anti-overflow">Исследователь океана</p>
       </div>
     </div>
 
-    <button class="button button_place_content button_type_add-card"></button>
+    <button class="profile__btn-add-card button opacity-dim opacity-dim_middle" aria-label="Добавить фотографию"></button>
   </section>
 
-  <section class="cards">
-    <div class="cards__card">
-      <img class="cards__image" src="images/cards__image(2).png" alt="Каменная постройка в лесу">
-      <div class="cards__info">
-        <h2 class="cards__title">Карачаевск</h2>
-        <button class="button button_place_card button_type_like"></button>
-      </div>
-    </div>
+  <section class="gallery">
+    <ul class="cards">
+      <li class="cards__card">
+        <img class="cards__image" src="images/cards__image(2).png" alt="Каменная постройка в лесу">
+        <div class="cards__info">
+          <h2 class="cards__title anti-overflow">Карачаевск</h2>
+          <button class="cards__btn-like-card button opacity-dim opacity-dim_low" aria-label="Оценить фотографию"></button>
+        </div>
+      </li>
 
-    <div class="cards__card">
-      <img class="cards__image" src="images/cards__image(3).png" alt="Пейзаж степи с отдаленной горой">
-      <div class="cards__info">
-        <h2 class="cards__title">Гора Эльбрус</h2>
-        <button class="button button_place_card button_type_like"></button>
-      </div>
-    </div>
+      <li class="cards__card">
+        <img class="cards__image" src="images/cards__image(3).png" alt="Пейзаж степи с отдаленной горой">
+        <div class="cards__info">
+          <h2 class="cards__title anti-overflow">Гора Эльбрус</h2>
+          <button class="cards__btn-like-card button opacity-dim opacity-dim_low" aria-label="Оценить фотографию"></button>
+        </div>
+      </li>
 
-    <div class="cards__card">
-      <img class="cards__image" src="images/cards__image(1).png" alt="Лес и заснеженные вершины гор">
-      <div class="cards__info">
-        <h2 class="cards__title">Домбай</h2>
-        <button class="button button_place_card button_type_like"></button>
-      </div>
-    </div>
+      <li class="cards__card">
+        <img class="cards__image" src="images/cards__image(1).png" alt="Лес и заснеженные вершины гор">
+        <div class="cards__info">
+          <h2 class="cards__title anti-overflow">Домбай</h2>
+          <button class="cards__btn-like-card button opacity-dim opacity-dim_low" aria-label="Оценить фотографию"></button>
+        </div>
+      </li>
 
-    <div class="cards__card">
-      <img class="cards__image" src="images/cards__image(3).png" alt="Пейзаж степи с отдаленной горой">
-      <div class="cards__info">
-        <h2 class="cards__title">Гора Эльбрус</h2>
-        <button class="button button_place_card button_type_like"></button>
-      </div>
-    </div>
+      <li class="cards__card">
+        <img class="cards__image" src="images/cards__image(3).png" alt="Пейзаж степи с отдаленной горой">
+        <div class="cards__info">
+          <h2 class="cards__title anti-overflow">Гора Эльбрус</h2>
+          <button class="cards__btn-like-card button opacity-dim opacity-dim_low" aria-label="Оценить фотографию"></button>
+        </div>
+      </li>
 
-    <div class="cards__card">
-      <img class="cards__image" src="images/cards__image(1).png" alt="Лес и заснеженные вершины гор">
-      <div class="cards__info">
-        <h2 class="cards__title">Домбай</h2>
-        <button class="button button_place_card button_type_like"></button>
-      </div>
-    </div>
+      <li class="cards__card">
+        <img class="cards__image" src="images/cards__image(1).png" alt="Лес и заснеженные вершины гор">
+        <div class="cards__info">
+          <h2 class="cards__title anti-overflow">Домбай</h2>
+          <button class="cards__btn-like-card button opacity-dim opacity-dim_low" aria-label="Оценить фотографию"></button>
+        </div>
+      </li>
 
-    <div class="cards__card">
-      <img class="cards__image" src="images/cards__image(2).png" alt="Каменная постройка в лесу">
-      <div class="cards__info">
-        <h2 class="cards__title">Карачаево-Черкессия</h2>
-        <button class="button button_place_card button_type_like"></button>
-      </div>
-    </div>
+      <li class="cards__card">
+        <img class="cards__image" src="images/cards__image(2).png" alt="Каменная постройка в лесу">
+        <div class="cards__info">
+          <h2 class="cards__title anti-overflow">Карачаево-Черкессия</h2>
+          <button class="cards__btn-like-card button opacity-dim opacity-dim_low" aria-label="Оценить фотографию"></button>
+        </div>
+      </li>
+    </ul>
   </section>
 
   <footer class="footer">
     <p class="footer__copyright">© 2020 Mesto Russia</p>
   </footer>
 
-  <script src="scripts/script.js"></script>
+  <div class="popup">
+    <form class="popup__container">
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <input class="popup__input popup__input_type_user-name" type="text">
+      <input class="popup__input popup__input_type_about-user" type="text">
+      <input class="popup__btn-submit button opacity-dim opacity-dim_high" name="submit-popup" type="submit"
+        value="Сохранить" aria-label="Сохранить введенные данные">
+      <input class="popup__btn-close button opacity-dim opacity-dim_middle" type="button" aria-label="Закрыть окно редактирования профиля">
+    </form>
+  </div>
+
+  <script src="scripts/index.js"></script>
 </body>
 
 </html>

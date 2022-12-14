@@ -3,15 +3,16 @@
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: center;
+  align-content: flex-start;
   margin-left: 30px;
 }
 
 @media screen and (max-width: 600px) {
   .profile__user-data {
+    justify-content: center;
     align-items: center;
     gap: 7px;
     margin-left: 0;
+    margin-top: 22px;
   }
 }

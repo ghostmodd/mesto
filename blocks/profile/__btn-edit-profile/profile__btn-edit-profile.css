@@ -1,11 +1,12 @@
-.button_place_user-data {
+.profile__btn-edit-profile {
   width: 24px;
   height: 24px;
+  background-image: url(../../../images/profile__btn-edit-profile.svg);
   margin-top: 36px;
 }
 
 @media screen and (max-width: 600px) {
-  .button_place_user-data {
+  .profile__btn-edit-profile {
     width: 18px;
     height: 18px;
     margin-top: 0;

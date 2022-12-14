@@ -1,6 +1,7 @@
 .cards__info {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   box-sizing: border-box;
   height: 79px;
   background: #FFFFFF;

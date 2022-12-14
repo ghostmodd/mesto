@@ -15,12 +15,11 @@
   }
 }
 
-/* для этого разрешения надо выставить width блокам в процентах */
 @media screen and (max-width: 600px) {
   .profile {
     width: 88%;
     flex-direction: column;
-    gap: 34px;
+    gap: 29px;
     margin-bottom: 36px;
   }
 }
