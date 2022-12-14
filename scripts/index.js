@@ -18,28 +18,33 @@ function addValuePopup() {
 
 // показать или скрыть форму
 function callPopup() {
-  popup.classList.toggle('popup_opened');
+  console.log(popup.classList.toggle('popup_opened'));
 };
 
 // отправка формы
 function submitPopup(evt) {
   evt.preventDefault();
-  userName.textContent = userNameInput.value;
-  userAbout.textContent = userAboutInput.value;
+  editProfile();
   callPopup();
 };
+
+
+// изменение данных профиля
+function editProfile() {
+  userName.textContent = userNameInput.value;
+  userAbout.textContent = userAboutInput.value;
+}
 
 // реализация горячих клавиш
 // думаю, в будущем смогу оптимизировать с помощью асинхронного программирования. поставить бы
 // цикл какой-нибудь, чтоб Listener ловил события только если popup открыт
 function ifHotKeyPressedPopup(evt) {
   if (popup.classList.contains('popup_opened') && evt.key === 'Enter') {
-    userName.textContent = userNameInput.value;
-    userAbout.textContent = userAboutInput.value;
-    callPopup();
+    editProfile();
   }
 
   else if (popup.classList.contains('popup_opened') && evt.key === 'Escape') {
+    console.log(evt.key === 'Escape');
     callPopup();
   }
 };

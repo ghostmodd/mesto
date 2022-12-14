@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang="ru">
 
 <head>
   <meta charset="UTF-8">
@@ -18,12 +19,14 @@
       <img class="profile__avatar" src="images/profile__avatar.jpg" alt="Изображение профиля пользователя">
       <div class="profile__user-data">
         <h1 class="profile__user-name anti-overflow">Жак-Ив Кусто</h1>
-        <button class="profile__btn-edit-profile button opacity-dim opacity-dim_low" aria-label="Редактировать профиль"></button>
+        <button class="profile__btn-edit-profile button opacity-dim opacity-dim_low"
+          aria-label="Редактировать профиль"></button>
         <p class="profile__about-user anti-overflow">Исследователь океана</p>
       </div>
     </div>
 
-    <button class="profile__btn-add-card button opacity-dim opacity-dim_middle" aria-label="Добавить фотографию"></button>
+    <button class="profile__btn-add-card button opacity-dim opacity-dim_middle"
+      aria-label="Добавить фотографию"></button>
   </section>
 
   <section class="gallery">
@@ -32,7 +35,8 @@
         <img class="cards__image" src="images/cards__image(2).png" alt="Каменная постройка в лесу">
         <div class="cards__info">
           <h2 class="cards__title anti-overflow">Карачаевск</h2>
-          <button class="cards__btn-like-card button opacity-dim opacity-dim_low" aria-label="Оценить фотографию"></button>
+          <button class="cards__btn-like-card button opacity-dim opacity-dim_low"
+            aria-label="Оценить фотографию"></button>
         </div>
       </li>
 
@@ -40,7 +44,8 @@
         <img class="cards__image" src="images/cards__image(3).png" alt="Пейзаж степи с отдаленной горой">
         <div class="cards__info">
           <h2 class="cards__title anti-overflow">Гора Эльбрус</h2>
-          <button class="cards__btn-like-card button opacity-dim opacity-dim_low" aria-label="Оценить фотографию"></button>
+          <button class="cards__btn-like-card button opacity-dim opacity-dim_low"
+            aria-label="Оценить фотографию"></button>
         </div>
       </li>
 
@@ -48,7 +53,8 @@
         <img class="cards__image" src="images/cards__image(1).png" alt="Лес и заснеженные вершины гор">
         <div class="cards__info">
           <h2 class="cards__title anti-overflow">Домбай</h2>
-          <button class="cards__btn-like-card button opacity-dim opacity-dim_low" aria-label="Оценить фотографию"></button>
+          <button class="cards__btn-like-card button opacity-dim opacity-dim_low"
+            aria-label="Оценить фотографию"></button>
         </div>
       </li>
 
@@ -56,7 +62,8 @@
         <img class="cards__image" src="images/cards__image(3).png" alt="Пейзаж степи с отдаленной горой">
         <div class="cards__info">
           <h2 class="cards__title anti-overflow">Гора Эльбрус</h2>
-          <button class="cards__btn-like-card button opacity-dim opacity-dim_low" aria-label="Оценить фотографию"></button>
+          <button class="cards__btn-like-card button opacity-dim opacity-dim_low"
+            aria-label="Оценить фотографию"></button>
         </div>
       </li>
 
@@ -64,7 +71,8 @@
         <img class="cards__image" src="images/cards__image(1).png" alt="Лес и заснеженные вершины гор">
         <div class="cards__info">
           <h2 class="cards__title anti-overflow">Домбай</h2>
-          <button class="cards__btn-like-card button opacity-dim opacity-dim_low" aria-label="Оценить фотографию"></button>
+          <button class="cards__btn-like-card button opacity-dim opacity-dim_low"
+            aria-label="Оценить фотографию"></button>
         </div>
       </li>
 
@@ -72,7 +80,8 @@
         <img class="cards__image" src="images/cards__image(2).png" alt="Каменная постройка в лесу">
         <div class="cards__info">
           <h2 class="cards__title anti-overflow">Карачаево-Черкессия</h2>
-          <button class="cards__btn-like-card button opacity-dim opacity-dim_low" aria-label="Оценить фотографию"></button>
+          <button class="cards__btn-like-card button opacity-dim opacity-dim_low"
+            aria-label="Оценить фотографию"></button>
         </div>
       </li>
     </ul>
@@ -82,14 +91,17 @@
     <p class="footer__copyright">© 2020 Mesto Russia</p>
   </footer>
 
-  <div class="popup">
+  <div class="popup" aria-label="Окно редактирования информации о пользователе">
     <form class="popup__container">
       <h2 class="popup__title">Редактировать профиль</h2>
-      <input class="popup__input popup__input_type_user-name" type="text">
-      <input class="popup__input popup__input_type_about-user" type="text">
+      <input class="popup__input popup__input_type_user-name" type="text"
+        aria-label="Поле для ввода имени пользователя">
+      <input class="popup__input popup__input_type_about-user" type="text"
+        aria-label="Поле для ввода информации о пользователе">
       <input class="popup__btn-submit button opacity-dim opacity-dim_high" name="submit-popup" type="submit"
         value="Сохранить" aria-label="Сохранить введенные данные">
-      <input class="popup__btn-close button opacity-dim opacity-dim_middle" type="button" aria-label="Закрыть окно редактирования профиля">
+      <button class="popup__btn-close button opacity-dim opacity-dim_middle"
+        aria-label="Закрыть окно редактирования профиля"></button>
     </form>
   </div>
 
