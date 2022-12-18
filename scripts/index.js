@@ -1,8 +1,8 @@
 // значения профиля
 const userName = document.querySelector('.profile__user-name');
-const userNameInput = document.querySelector('input[name="user-name"]');
+const userNameInput = document.querySelector('.edit-profile__input_type_user-name');
 const userAbout = document.querySelector('.profile__about-user');
-const userAboutInput = document.querySelector('input[name="about-user"]');
+const userAboutInput = document.querySelector('.edit-profile__input_type_about-user');
 
 // управление popup`ом
 const popup = document.querySelector('.popup');
