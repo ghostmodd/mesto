@@ -17,12 +17,13 @@ function addValuePopup() {
   userAboutInput.value = `${userAbout.textContent}`;
 };
 
-// показать или скрыть форму
+// показать форму
 function openPopup() {
   addValuePopup();
   popup.classList.add('popup_opened');
 };
 
+// скрыть форму
 function closePopup() {
   popup.classList.remove('popup_opened');
 }
@@ -34,6 +35,7 @@ function submitPopup(evt) {
   userAbout.textContent = userAboutInput.value;
   closePopup()
 };
+
 
 // Listener`ы и иное взаимодействие с DOM
 buttonShowPopup.addEventListener('click', openPopup);
