@@ -19,7 +19,7 @@
   .profile {
     width: 88%;
     flex-direction: column;
-    gap: 39px;
+    gap: 37.5px;
     margin-bottom: 36px;
   }
 }
