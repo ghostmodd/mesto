@@ -8,13 +8,6 @@
 @import url(../blocks/anti-overflow/anti-overflow.css);
 
 
-/* OPACITY */
-@import url(../blocks/opacity-dim/opacity-dim.css);
-@import url(../blocks/opacity-dim/_high/opacity-dim_high.css);
-@import url(../blocks/opacity-dim/_middle/opacity-dim_middle.css);
-@import url(../blocks/opacity-dim/_low/opacity-dim_low.css);
-
-
 /* BUTTON */
 @import url(../blocks/button/button.css);
 
@@ -53,9 +46,9 @@
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/popup/__container/popup__container.css);
-@import url(../blocks/popup/__title/popup__title.css);
-@import url(../blocks/popup/__input/popup__input.css);
-@import url(../blocks/popup/__input/_type/popup__input_type_user-name.css);
-@import url(../blocks/popup/__input/_type/popup__input_type_about-user.css);
-@import url(../blocks/popup/__btn-submit/popup__btn-submit.css);
-@import url(../blocks/popup/__btn-close/popup__btn-close.css);
+
+@import url(../blocks/edit-profile/edit-profile.css);
+@import url(../blocks/edit-profile/__title/edit-profile__title.css);
+@import url(../blocks/edit-profile/__input/edit-profile__input.css);
+@import url(../blocks/edit-profile/__btn-submit/edit-profile__btn-submit.css);
+@import url(../blocks/edit-profile/__btn-close/edit-profile__btn-close.css);

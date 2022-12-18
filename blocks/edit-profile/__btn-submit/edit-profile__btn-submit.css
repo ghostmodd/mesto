@@ -1,0 +1,26 @@
+.edit-profile__btn-submit {
+  width: 358px;
+  height: 50px;
+  background-color: black;
+  border-radius: 2px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 18px;
+  color: white;
+  margin: 0 0 37px;
+}
+
+.edit-profile__btn-submit:hover {
+  opacity: 0.8;
+}
+
+
+@media screen and (max-width: 640px) {
+  .edit-profile__btn-submit {
+    width: 238px;
+    height: 46px;
+    font-size: 14px;
+    line-height: 17px;
+    margin-bottom: 25px;
+  }
+}

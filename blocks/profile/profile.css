@@ -7,7 +7,7 @@
   margin: 0 auto 50px;
 }
 
-@media screen and (max-width: 880px) {
+@media screen and (max-width: 980px) {
   .profile {
     max-width: 582px;
     justify-content: center;
@@ -15,11 +15,11 @@
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 640px) {
   .profile {
     width: 88%;
     flex-direction: column;
-    gap: 29px;
+    gap: 39px;
     margin-bottom: 36px;
   }
 }

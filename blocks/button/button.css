@@ -1,7 +1,10 @@
 .button {
+  border: none;
   border: 1px solid #FFFFFF;
   background-color: inherit;
   background-position: center;
   background-repeat: no-repeat;
+  transition: opacity .12s;
+  cursor: pointer;
   padding: 0;
 }

@@ -5,10 +5,15 @@
   margin-top: 36px;
 }
 
-@media screen and (max-width: 600px) {
+.profile__btn-edit-profile:hover {
+  opacity: 0.5;
+}
+
+@media screen and (max-width: 640px) {
   .profile__btn-edit-profile {
     width: 18px;
     height: 18px;
+    background-image: url(../../../images/profile__btn-edit-profile@640px.svg);
     margin-top: 0;
   }
 }

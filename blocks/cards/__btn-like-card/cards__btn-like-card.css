@@ -5,3 +5,7 @@
   border: none;
   margin-right: 20px;
 }
+
+.cards__btn-like-card:hover {
+  opacity: 0.5;
+}

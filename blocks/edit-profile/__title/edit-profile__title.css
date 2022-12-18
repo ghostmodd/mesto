@@ -1,4 +1,4 @@
-.popup__title {
+.edit-profile__title {
   max-width: 360px;
   width: 83.2%;
   font-weight: 900;
@@ -8,10 +8,12 @@
   margin: 34px 0 54px;
 }
 
-@media screen and (max-width: 600px) {
-  .popup__title {
+@media screen and (max-width: 640px) {
+  .edit-profile__title {
     max-width: 238px;
     font-size: 18px;
     line-height: 22px;
+    margin-top: 25px;
+    margin-bottom: 75px;
   }
 }

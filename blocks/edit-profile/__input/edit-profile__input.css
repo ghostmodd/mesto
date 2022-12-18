@@ -1,4 +1,4 @@
-.popup__input {
+.edit-profile__input {
   width: 83.2%;
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
@@ -6,4 +6,12 @@
   font-size: 14px;
   line-height: 14px;
   padding: 0 0 6px;
+}
+
+.edit-profile__input:first-of-type {
+  margin: 0 0 34px;
+}
+
+.edit-profile__input:last-of-type {
+  margin: 0 0 48px;
 }

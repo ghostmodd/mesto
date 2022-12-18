@@ -3,14 +3,14 @@
   margin: 0 auto 67px;
 }
 
-@media screen and (max-width: 880px) {
+@media screen and (max-width: 980px) {
   .gallery {
     max-width: 582px;
     margin-bottom: 48px;
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 640px) {
   .gallery {
     width: 88%;
   }

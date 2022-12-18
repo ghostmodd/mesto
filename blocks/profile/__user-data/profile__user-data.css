@@ -7,7 +7,7 @@
   margin-left: 30px;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 640px) {
   .profile__user-data {
     justify-content: center;
     align-items: center;

@@ -1,12 +1,18 @@
 .profile__btn-add-card {
   width: 150px;
   height: 48px;
-  background-image: url(../../../images/profile__btn-add-card.png);
+  border-width: 2px;
+  background-image: url(../../../images/profile__btn-add-card.svg);
 }
 
-@media screen and (max-width: 600px) {
+.profile__btn-add-card:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 640px) {
   .profile__btn-add-card {
     width: 282px;
     height: 50px;
+    background-image: url(../../../images/profile__btn-add-cards@640px.svg);
   }
 }
