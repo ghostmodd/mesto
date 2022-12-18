@@ -18,24 +18,24 @@ function addValuePopup() {
 };
 
 // показать или скрыть форму
-function callPopup() {
-  if(!popup.classList.contains('popup_opened')) {
-    addValuePopup();
-    popup.classList.add('popup_opened');
-  } else {
-    popup.classList.remove('popup_opened');
-  }
+function openPopup() {
+  addValuePopup();
+  popup.classList.add('popup_opened');
 };
+
+function closePopup() {
+  popup.classList.remove('popup_opened');
+}
 
 // отправка формы
 function submitPopup(evt) {
   evt.preventDefault();
   userName.textContent = userNameInput.value;
   userAbout.textContent = userAboutInput.value;
-  callPopup();
+  closePopup()
 };
 
 // Listener`ы и иное взаимодействие с DOM
-buttonShowPopup.addEventListener('click', callPopup);
+buttonShowPopup.addEventListener('click', openPopup);
 formEditProfile.addEventListener('submit', submitPopup);
-buttonClosePopup.addEventListener('click', callPopup);
+buttonClosePopup.addEventListener('click', closePopup);
