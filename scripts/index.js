@@ -8,11 +8,11 @@ const userAboutInput = document.querySelector('.edit-profile__input_type_about-u
 const buttonLikeCard = document.querySelectorAll('.cards__btn-like-card');
 
 // поставить или убрать лайк
-buttonLikeCard.forEach( elem =>
-  elem.addEventListener('click', function (evt) {
+buttonLikeCard.forEach(elem => {
+  elem.addEventListener('click', evt => {
     evt.target.classList.toggle('cards__btn-like-card_activated');
   })
-);
+});
 
 // управление popup`ом
 const popupEditProfile = document.querySelector('.popup_edit-profile');
@@ -29,12 +29,14 @@ function addValuePopup() {
 // показать форму
 function openPopup(popupElement) {
   addValuePopup();
-  popupElement.classList.add('popup_opened');
+  popupElement.style.visibility = 'visible';
+  popupElement.style.opacity = '1';
 };
 
 // скрыть форму
 function closePopup(popupElement) {
-  popupElement.classList.remove('popup_opened');
+  popupElement.style.opacity = '0';
+  setTimeout(() => {popupElement.style.visibility = 'hidden'}, 100);
 }
 
 // отправка формы
@@ -46,6 +48,6 @@ function submitPopup(evt) {
 };
 
 // Listener`ы и иное взаимодействие с DOM
-buttonShowPopup.addEventListener('click', () => {openPopup(popupEditProfile)});
+buttonShowPopup.addEventListener('click', () => { openPopup(popupEditProfile) });
 formEditProfile.addEventListener('submit', submitPopup);
-buttonClosePopup.addEventListener('click', () => {closePopup(popupEditProfile)});
+buttonClosePopup.addEventListener('click', () => { closePopup(popupEditProfile) });
