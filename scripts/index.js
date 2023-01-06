@@ -4,12 +4,21 @@ const userNameInput = document.querySelector('.edit-profile__input_type_user-nam
 const userAbout = document.querySelector('.profile__about-user');
 const userAboutInput = document.querySelector('.edit-profile__input_type_about-user');
 
+// взаимодействие с карточкой
+const buttonLikeCard = document.querySelectorAll('.cards__btn-like-card');
+
+// поставить или убрать лайк
+buttonLikeCard.forEach( elem =>
+  elem.addEventListener('click', function (evt) {
+    evt.target.classList.toggle('cards__btn-like-card_activated');
+  })
+);
+
 // управление popup`ом
-const popup = document.querySelector('.popup');
+const popupEditProfile = document.querySelector('.popup_edit-profile');
 const formEditProfile = document.querySelector('.edit-profile');
 const buttonShowPopup = document.querySelector('.profile__btn-edit-profile');
 const buttonClosePopup = document.querySelector('.edit-profile__btn-close');
-
 
 // добавить значения к инпутам
 function addValuePopup() {
@@ -18,14 +27,14 @@ function addValuePopup() {
 };
 
 // показать форму
-function openPopup() {
+function openPopup(popupElement) {
   addValuePopup();
-  popup.classList.add('popup_opened');
+  popupElement.classList.add('popup_opened');
 };
 
 // скрыть форму
-function closePopup() {
-  popup.classList.remove('popup_opened');
+function closePopup(popupElement) {
+  popupElement.classList.remove('popup_opened');
 }
 
 // отправка формы
@@ -33,11 +42,10 @@ function submitPopup(evt) {
   evt.preventDefault();
   userName.textContent = userNameInput.value;
   userAbout.textContent = userAboutInput.value;
-  closePopup()
+  closePopup(popupEditProfile);
 };
 
-
 // Listener`ы и иное взаимодействие с DOM
-buttonShowPopup.addEventListener('click', openPopup);
+buttonShowPopup.addEventListener('click', () => {openPopup(popupEditProfile)});
 formEditProfile.addEventListener('submit', submitPopup);
-buttonClosePopup.addEventListener('click', closePopup);
+buttonClosePopup.addEventListener('click', () => {closePopup(popupEditProfile)});
