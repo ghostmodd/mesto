@@ -24,48 +24,15 @@
     </section>
     <section class="gallery">
       <ul class="cards">
-        <li class="cards__card">
-          <img class="cards__image" src="images/cards__image(2).jpg" alt="Каменная постройка в лесу">
-          <div class="cards__info">
-            <h2 class="cards__title anti-overflow">Карачаевск</h2>
-            <button class="cards__btn-like-card button" aria-label="Оценить фотографию" type="button"></button>
-          </div>
-        </li>
-        <li class="cards__card">
-          <img class="cards__image" src="images/cards__image(3).jpg" alt="Пейзаж степи с отдаленной горой">
-          <div class="cards__info">
-            <h2 class="cards__title anti-overflow">Гора Эльбрус</h2>
-            <button class="cards__btn-like-card button" aria-label="Оценить фотографию" type="button"></button>
-          </div>
-        </li>
-        <li class="cards__card">
-          <img class="cards__image" src="images/cards__image(1).jpg" alt="Лес и заснеженные вершины гор">
-          <div class="cards__info">
-            <h2 class="cards__title anti-overflow">Домбай</h2>
-            <button class="cards__btn-like-card button" aria-label="Оценить фотографию" type="button"></button>
-          </div>
-        </li>
-        <li class="cards__card">
-          <img class="cards__image" src="images/cards__image(3).jpg" alt="Пейзаж степи с отдаленной горой">
-          <div class="cards__info">
-            <h2 class="cards__title anti-overflow">Гора Эльбрус</h2>
-            <button class="cards__btn-like-card button" aria-label="Оценить фотографию" type="button"></button>
-          </div>
-        </li>
-        <li class="cards__card">
-          <img class="cards__image" src="images/cards__image(1).jpg" alt="Лес и заснеженные вершины гор">
-          <div class="cards__info">
-            <h2 class="cards__title anti-overflow">Домбай</h2>
-            <button class="cards__btn-like-card button" aria-label="Оценить фотографию" type="button"></button>
-          </div>
-        </li>
-        <li class="cards__card">
-          <img class="cards__image" src="images/cards__image(2).jpg" alt="Каменная постройка в лесу">
-          <div class="cards__info">
-            <h2 class="cards__title anti-overflow">Карачаево-Черкессия</h2>
-            <button class="cards__btn-like-card button" aria-label="Оценить фотографию" type="button"></button>
-          </div>
-        </li>
+        <template id="card">
+          <li class="card">
+            <img class="card__image" src="" alt="">
+            <div class="card__info">
+              <h2 class="card__title anti-overflow"></h2>
+              <button class="card__btn-like-card button" aria-label="Оценить фотографию" type="button"></button>
+            </div>
+          </li>
+        </template>
       </ul>
     </section>
   </main>
@@ -74,13 +41,27 @@
   </footer>
   <div class="popup popup_edit-profile" aria-label="Окно редактирования информации о пользователе">
     <div class="popup__container">
-      <form class="edit-profile" name="edit-profile">
-        <h2 class="edit-profile__title">Редактировать профиль</h2>
-        <input class="edit-profile__input edit-profile__input_type_user-name" name="user-name" type="text" aria-label="Поле для ввода имени пользователя">
-        <input class="edit-profile__input edit-profile__input_type_about-user" name="about-user" type="text"
+      <form class="form form_edit-profile" name="edit-profile">
+        <h2 class="form__title">Редактировать профиль</h2>
+        <input class="form__input form__input_type_user-name" name="user-name" type="text"
+          aria-label="Поле для ввода имени пользователя">
+        <input class="form__input form__input_type_about-user" name="about-user" type="text"
           aria-label="Поле для ввода информации о пользователе">
-        <button class="edit-profile__btn-submit button" type="submit">Сохранить</button>
-        <button class="edit-profile__btn-close button" type="button" aria-label="Закрыть страницы"></button>
+        <button class="form__btn-submit button" type="submit">Сохранить</button>
+        <button class="form__btn-close button" type="button" aria-label="Закрыть страницу"></button>
+      </form>
+    </div>
+  </div>
+  <div class="popup popup_add-card" aria-label="Окно добавления фотокарточки">
+    <div class="popup__container">
+      <form class="form form_add-card" name="add-card">
+        <h2 class="form__title">Новое место</h2>
+        <input class="form__input form__input_type_card-title" name="card-title" type="text" placeholder="Название"
+          aria-label="Поле для ввода названия места">
+        <input class="form__input form__input_type_image-link" name="card-image-link" type="text"
+          placeholder="Ссылка на картинку" aria-label="Поле для ввода ссылки на изображение">
+        <button class="form__btn-submit button" type="submit">Создать</button>
+        <button class="form__btn-close button" type="button" aria-label="Закрыть страницу"></button>
       </form>
     </div>
   </div>

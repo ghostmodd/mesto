@@ -1,4 +1,4 @@
-.edit-profile__input {
+.form__input {
   width: 83.2%;
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
@@ -8,10 +8,10 @@
   padding: 0 0 6px;
 }
 
-.edit-profile__input:first-of-type {
+.form__input:first-of-type {
   margin: 0 0 34px;
 }
 
-.edit-profile__input:last-of-type {
+.form__input:last-of-type {
   margin: 0 0 48px;
 }

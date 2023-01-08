@@ -1,4 +1,4 @@
-.cards__btn-like-card {
+.card__btn-like-card {
   width: 22px;
   height: 19px;
   background-image: url(../../../images/cards__btn-like-card.svg);
@@ -6,6 +6,6 @@
   margin-right: 20px;
 }
 
-.cards__btn-like-card:hover {
+.card__btn-like-card:hover {
   opacity: 0.5;
 }
