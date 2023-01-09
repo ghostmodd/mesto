@@ -71,9 +71,7 @@ function addValuePopup() {
 function openPopup(popupElement) {
   const buttonClosePopup = popupElement.querySelector('.button_type_close-popup');
   buttonClosePopup.addEventListener('click', closePopup);
-
-  popupElement.style.visibility = 'visible';
-  popupElement.style.opacity = '1';
+  popupElement.classList.add('popup_opened');
 };
 
 /**
@@ -86,9 +84,7 @@ function openPopup(popupElement) {
  * gets the closest parent element
 */
 function closePopup(evt, popupElement = evt.target.closest('.popup')) {
-  popupElement.style.opacity = '0';
-  // setTimeout is used to wait for the transition to complete
-  setTimeout(() => { popupElement.style.visibility = 'hidden' }, 100);
+  popupElement.classList.remove('popup_opened');
 }
 
 /**

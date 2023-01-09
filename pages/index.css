@@ -46,12 +46,15 @@
 
 /* POPUP */
 @import url(../blocks/popup/popup.css);
+@import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/popup/__container/popup__container.css);
 
+/* FORM */
 @import url(../blocks/form/form.css);
 @import url(../blocks/form/__title/form__title.css);
 @import url(../blocks/form/__input/form__input.css);
 @import url(../blocks/form/__btn-submit/form__btn-submit.css);
 
+/* CARD-ZOOM POPUP */
 @import url(../blocks/card-zoom/card-zoom.css);
 @import url(../blocks/card-zoom/__image/card-zoom__image.css);
