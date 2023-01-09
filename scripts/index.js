@@ -91,11 +91,15 @@ function renderCard(elem) {
   const cardTemplate = document.querySelector('#card').content.querySelector('.card').cloneNode(true);
   const cardTitle = cardTemplate.querySelector('.card__title');
   const cardImage = cardTemplate.querySelector('.card__image');
+  const buttonDeleteCard = cardTemplate.querySelector('.card__btn-delete-card');
   const buttonLikeCard = cardTemplate.querySelector('.card__btn-like-card');
   cardImage.src = elem.link;
   cardImage.alt = `Фотография места "${elem.name}"`;
   cardTitle.textContent = elem.name;
   cardsContainer.prepend(cardTemplate);
+  buttonDeleteCard.addEventListener('click', evt => {
+    evt.target.closest('.card').remove();
+  });
   buttonLikeCard.addEventListener('click', evt => {
     evt.target.classList.toggle('card__btn-like-card_activated')
   });
