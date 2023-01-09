@@ -10,7 +10,7 @@
 
 /* BUTTON */
 @import url(../blocks/button/button.css);
-@import url(../blocks/button/_type/button_type_close-window.css);
+@import url(../blocks/button/_type/button_type_close-popup.css);
 
 
 /* HEADER */
