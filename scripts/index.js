@@ -14,7 +14,7 @@ const initialCards = [
   },
   {
     name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
+    link: 'https://i.ibb.co/5YBsnbF/kira-porotikova-4d-PT83cs-Tic-unsplash.jpg',
   },
   {
     name: 'Иваново',
@@ -36,12 +36,12 @@ const initialCards = [
 
 // Кнопка закрытия popup
 let whatPopupIsOpened = '';
-const buttonClosePopup = document.querySelectorAll('.form__btn-close');
+const buttonClosePopup = document.querySelectorAll('.button_type_close-window');
 
 // EDIT-PROFILE
 const popupEditProfile = document.querySelector('.popup_edit-profile');
 const formEditProfile = document.querySelector('.form_edit-profile');
-const buttonShowPopup = document.querySelector('.profile__btn-edit-profile');
+const buttonEditProfile = document.querySelector('.profile__btn-edit-profile');
 
 // ADD-CARD
 const popupAddCard = document.querySelector('.popup_add-card');
@@ -49,6 +49,17 @@ const formAddCard = document.querySelector('.form_add-card');
 const buttonAddCard = document.querySelector('.profile__btn-add-card');
 const cardTitleInput = formAddCard.querySelector('.form__input_type_card-title');
 const cardImageLinkInput = formAddCard.querySelector('.form__input_type_image-link');
+
+// CARD-ZOOM
+const popupCardZoom = document.querySelector('.popup_card-zoom');
+const imageCardZoom = document.querySelector('.card-zoom__image');
+const captionCardZoom = document.querySelector('.card-zoom__caption');
+
+
+
+
+
+
 
 // добавить значения к инпутам
 function addValuePopup() {
@@ -93,13 +104,19 @@ function renderCard(elem) {
   const cardImage = cardTemplate.querySelector('.card__image');
   const buttonDeleteCard = cardTemplate.querySelector('.card__btn-delete-card');
   const buttonLikeCard = cardTemplate.querySelector('.card__btn-like-card');
+
   cardImage.src = elem.link;
   cardImage.alt = `Фотография места "${elem.name}"`;
   cardTitle.textContent = elem.name;
   cardsContainer.prepend(cardTemplate);
-  buttonDeleteCard.addEventListener('click', evt => {
-    evt.target.closest('.card').remove();
+
+  cardImage.addEventListener('click', () => {
+    imageCardZoom.src = cardImage.src;
+    imageCardZoom.alt = cardImage.alt;
+    captionCardZoom.textContent = cardTitle.textContent;
+    openPopup(popupCardZoom);
   });
+  buttonDeleteCard.addEventListener('click', evt => { evt.target.closest('.card').remove() });
   buttonLikeCard.addEventListener('click', evt => {
     evt.target.classList.toggle('card__btn-like-card_activated')
   });
@@ -118,6 +135,10 @@ function addCard() {
 }
 
 
+
+
+
+
 initCards();
 // Listener`ы и иное взаимодействие с DOM
 buttonClosePopup.forEach(elem => {
@@ -125,7 +146,7 @@ buttonClosePopup.forEach(elem => {
 });
 
 
-buttonShowPopup.addEventListener('click', () => {
+buttonEditProfile.addEventListener('click', () => {
   openPopup(popupEditProfile);
   addValuePopup();
 });

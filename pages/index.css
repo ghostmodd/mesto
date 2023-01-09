@@ -10,6 +10,7 @@
 
 /* BUTTON */
 @import url(../blocks/button/button.css);
+@import url(../blocks/button/_type/button_type_close-window.css);
 
 
 /* HEADER */
@@ -51,4 +52,6 @@
 @import url(../blocks/form/__title/form__title.css);
 @import url(../blocks/form/__input/form__input.css);
 @import url(../blocks/form/__btn-submit/form__btn-submit.css);
-@import url(../blocks/form/__btn-close/form__btn-close.css);
+
+@import url(../blocks/card-zoom/card-zoom.css);
+@import url(../blocks/card-zoom/__image/card-zoom__image.css);

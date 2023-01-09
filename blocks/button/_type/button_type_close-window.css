@@ -1,4 +1,4 @@
-.form__btn-close {
+.button_type_close-window {
   width: 32px;
   height: 32px;
   background-image: url(../../../images/form__btn-close.svg);
@@ -8,12 +8,12 @@
   right: -34px;
 }
 
-.form__btn-close:hover {
+.button_type_close-window:hover {
   opacity: 0.6;
 }
 
 @media screen and (max-width: 640px) {
-  .form__btn-close {
+  .button_type_close-window {
     width: 20px;
     height: 20px;
     top: -36px;
