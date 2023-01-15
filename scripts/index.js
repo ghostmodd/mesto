@@ -5,35 +5,6 @@ const userNameInput = document.querySelector('.form__input_type_user-name');
 const userAbout = document.querySelector('.profile__about-user');
 const userAboutInput = document.querySelector('.form__input_type_about-user');
 
-// card elements or data source for initialization
-const cardsContainer = document.querySelector('.cards');
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://i.ibb.co/5YBsnbF/kira-porotikova-4d-PT83cs-Tic-unsplash.jpg',
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
-  },
-];
-
 // selectors for popup-edit-profile
 const popupEditProfile = document.querySelector('.popup_edit-profile');
 const formEditProfile = document.querySelector('.form_edit-profile');
@@ -125,7 +96,7 @@ function nullifyFormValue(popupElement) {
  * @param {object} elem necessary argument which should reffer to the data source (f. i., variable
  * or database)
 */
-function renderCard(elem) {
+function createCard(elem) {
   // selection of elements
   const cardTemplate = document.querySelector('#card').content.querySelector('.card').cloneNode(true);
   const cardTitle = cardTemplate.querySelector('.card__title');
@@ -137,7 +108,6 @@ function renderCard(elem) {
   cardImage.src = elem.link;
   cardImage.alt = `Фотография места "${elem.name}"`;
   cardTitle.textContent = elem.name;
-  cardsContainer.prepend(cardTemplate);
 
   // adding eventListeners
   cardImage.addEventListener('click', () => {
@@ -147,9 +117,16 @@ function renderCard(elem) {
     openPopup(popupCardZoom);
   });
   buttonDeleteCard.addEventListener('click', evt => { evt.target.closest('.card').remove() });
-  buttonLikeCard.addEventListener('click', evt => { evt.target.classList.toggle('card__btn-like-card_activated')
+  buttonLikeCard.addEventListener('click', evt => {
+    evt.target.classList.toggle('card__btn-like-card_activated')
   });
+
+  return cardTemplate;
 };
+
+function renderCard(card = createCard(initialCards)) {
+  cardsContainer.prepend(card);
+}
 
 /**
  * The function initializes cards from data source. It uses forEach to paste cards with information
@@ -159,21 +136,10 @@ function renderCard(elem) {
  * @see {@link renderCard} this function pastes cards to the page
 */
 function initCards(data) {
-  data.forEach(elem => { renderCard(elem) });
-};
-
-/**
- * The function adds new cards to the page
- * @param {object} data necessary argument which should reffer to the data source (f. i., variable
- * or database)
-*/
-function addCard(data) {
-  data.push({
-    name: cardTitleInput.value,
-    link: cardImageLinkInput.value,
+  data.forEach(elem => {
+    renderCard(createCard(elem));
   });
-  renderCard(data[data.length - 1]);
-}
+};
 
 /**
  * The function adds main eventListeners to the page's elements. There are such elements:
@@ -185,7 +151,7 @@ function addCard(data) {
  * Other event listeners are in related functions since they aren't supposed to be connected
  * with the main page.
 */
-function turnOnEventListeners () {
+function turnOnEventListeners() {
   buttonEditProfile.addEventListener('click', () => {
     openPopup(popupEditProfile);
     addValuePopup();
@@ -200,7 +166,11 @@ function turnOnEventListeners () {
   });
   formAddCard.addEventListener('submit', evt => {
     submitPopup(evt);
-    addCard(initialCards);
+    const newCard = {
+      name: cardTitleInput.value,
+      link: cardImageLinkInput.value,
+    }
+    renderCard(createCard(newCard));
   });
 }
 
