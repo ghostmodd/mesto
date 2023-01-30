@@ -6,12 +6,5 @@
   font-size: 14px;
   line-height: 14px;
   padding: 0 0 6px;
-}
-
-.form__input:first-of-type {
-  margin: 0 0 34px;
-}
-
-.form__input:last-of-type {
-  margin: 0 0 48px;
+  margin: 0 0 8px;
 }

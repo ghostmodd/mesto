@@ -53,7 +53,11 @@
 @import url(../blocks/form/form.css);
 @import url(../blocks/form/__title/form__title.css);
 @import url(../blocks/form/__input/form__input.css);
+@import url(../blocks/form/__input/_type/form__input_type_error.css);
+@import url(../blocks/form/__input-error/form__input-error.css);
+@import url(../blocks/form/__input-error/_active/form__input-error_active.css);
 @import url(../blocks/form/__btn-submit/form__btn-submit.css);
+@import url(../blocks/form/__btn-submit/_disabled/form__btn-submit_disabled.css);
 
 /* CARD-ZOOM POPUP */
 @import url(../blocks/card-zoom/card-zoom.css);
