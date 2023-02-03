@@ -167,7 +167,7 @@ function handleCardsSectionEvents (evt) {
 */
 function createCard(elem) {
   // selection of elements
-  cardClone = cardTemplate.cloneNode(true);
+  const cardClone = cardTemplate.cloneNode(true);
   const cardTitle = cardClone.querySelector('.card__title');
   const cardImage = cardClone.querySelector('.card__image');
 
@@ -233,6 +233,6 @@ function enableEventListeners() {
 };
 
 // GENERAL CALL FUNCTION
-enableValidation();
+enableValidation(validationConfig);
 initCards(initialCards);
 enableEventListeners();

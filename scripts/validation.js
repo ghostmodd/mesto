@@ -1,3 +1,13 @@
+// Data for validation
+const validationConfig = {
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  submitButtonSelector: '.form__btn-submit',
+  inputErrorClass: 'form__input_type_error',
+  activeInputErrorClass: 'form__input-error_active',
+  disableButtonClass: 'form__btn-submit_disabled',
+}
+
 /**
  * This function shows errors of input's validation. It selects an element
  * of mistake and change it's params
@@ -8,10 +18,10 @@
  * @param {string} validationMessage necessary argument which should contain
  * text which is to be shown to user
 */
-function showInputError (inputElement, errorElement, validationMessage) {
-  inputElement.classList.add('form__input_type_error');
+function showInputError (inputElement, errorElement, validationMessage, config) {
+  inputElement.classList.add(config.inputErrorClass);
   errorElement.textContent = validationMessage;
-  errorElement.classList.add('form__input-error_active');
+  errorElement.classList.add(config.activeInputErrorClass);
 };
 
 /**
@@ -22,10 +32,10 @@ function showInputError (inputElement, errorElement, validationMessage) {
  * @param {string} inputElement necessary argument which should reffer to the
  * input where no longer aren't any mistakes
 */
-function hideInputError (inputElement, errorElement) {
-  inputElement.classList.remove('form__input_type_error');
+function hideInputError (inputElement, errorElement, config) {
+  inputElement.classList.remove(config.inputErrorClass);
   errorElement.textContent = '';
-  errorElement.classList.remove('form__input-error_active');
+  errorElement.classList.remove(config.activeInputErrorClass);
 };
 
 /**
@@ -47,12 +57,12 @@ function hasInvalidInput (inputList) {
  * @param {array} inputList necessary argument which should contain array
  * of form's input list
 */
-function toggleButtonState (inputList, submitButton) {
+function toggleButtonState (inputList, submitButton, config) {
   if (hasInvalidInput(inputList)) {
-    submitButton.classList.add('form__btn-submit_disabled');
+    submitButton.classList.add(config.disableButtonClass);
     submitButton.setAttribute('disabled', '');
   } else {
-    submitButton.classList.remove('form__btn-submit_disabled');
+    submitButton.classList.remove(config.disableButtonClass);
     submitButton.removeAttribute('disabled', '');
   }
 };
@@ -62,8 +72,8 @@ function toggleButtonState (inputList, submitButton) {
  * @param {string} submitButton necessary argument which should reffer to the
  * button which should be disabled
 */
-function disableButtonState (submitButton) {
-  submitButton.classList.add('form__btn-submit_disabled');
+function disableButtonState (submitButton, config) {
+  submitButton.classList.add(config.disableButtonClass);
   submitButton.setAttribute('disabled', '');
 };
 
@@ -75,13 +85,13 @@ function disableButtonState (submitButton) {
  * @param {array} inputList necessary argument which should contain array
  * of form's input list
 */
-function checkValidation (inputList, inputElement, errorElement, submitButton) {
+function checkValidation (inputList, inputElement, errorElement, submitButton, config) {
     if (!inputElement.validity.valid) {
-      showInputError (inputElement, errorElement, inputElement.validationMessage);
+      showInputError (inputElement, errorElement, inputElement.validationMessage, config);
     } else {
-      hideInputError (inputElement, errorElement)
+      hideInputError (inputElement, errorElement, config)
     }
-    toggleButtonState(inputList, submitButton);
+    toggleButtonState(inputList, submitButton, config);
 };
 
 /**
@@ -89,17 +99,17 @@ function checkValidation (inputList, inputElement, errorElement, submitButton) {
  * @param {string} formElement necessary argument which should reffer to form
  * where it's needed to set listeners
 */
-function setInputValidation (formElement, inputList, submitButton) {
+function setInputValidation (formElement, inputList, submitButton, config) {
   inputList.forEach(inputElement => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.addEventListener('input', () => { checkValidation(inputList, inputElement, errorElement, submitButton) });
+    inputElement.addEventListener('input', () => { checkValidation(inputList, inputElement, errorElement, submitButton, config) });
   });
 
   if (formElement == formAddCard) {
-    formElement.addEventListener('submit', () => { disableButtonState(submitButton) });
+    formElement.addEventListener('submit', () => { disableButtonState(submitButton, config) });
   }
 
-  toggleButtonState(inputList, submitButton);
+  toggleButtonState(inputList, submitButton, config);
 };
 
 /**
@@ -111,12 +121,12 @@ function setInputValidation (formElement, inputList, submitButton) {
  * @see {@link toggleButtonState}
  * @see {@link hasInvalidInput}
 */
-function enableValidation () {
-  const formList = Array.from(document.querySelectorAll('.form'));
+function enableValidation (config) {
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
 
   formList.forEach(formElement => {
-    const inputList = Array.from(formElement.querySelectorAll('.form__input'));
-    const submitButton = formElement.querySelector('.form__btn-submit');
-    setInputValidation(formElement, inputList, submitButton);
+    const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
+    const submitButton = formElement.querySelector(config.submitButtonSelector);
+    setInputValidation(formElement, inputList, submitButton, config);
   });
 };
