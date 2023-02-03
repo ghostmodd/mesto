@@ -8,7 +8,10 @@ const userAboutInput = document.querySelector('.form__input_type_about-user');
 
 // cards
 const cards = document.querySelector('.cards');
+const cardTemplate = document.querySelector('#card').content.querySelector('.card');
 
+
+const popupList = document.querySelectorAll('.popup');
 // selectors for popup-edit-profile
 const popupEditProfile = document.querySelector('.popup_edit-profile');
 const formEditProfile = document.querySelector('.form_edit-profile');
@@ -32,55 +35,28 @@ const captionCardZoom = document.querySelector('.card-zoom__caption');
 /**
  * The function sets values for 'popup-edit-profile' input fields
 */
-function addValuePopup() {
+function addValuePopupEditProfile() {
   userNameInput.value = `${userName.textContent}`;
   userAboutInput.value = `${userAbout.textContent}`;
 };
 
 /**
- * This is a hadnler function which deals with the hotkey of closing
- * popup.
- * @see {@link openPopup} The event is expressed when a popup is opened
- * @see {@link closePopup} It removes when a popup is closed
+ * The function nullifies values of some popup's input fields
+ * @param {string} popupElement necessary argument which should reffer to popup element whose
+ * values are supposed to be nullified.
 */
-function escapeHandler(evt) {
-  if (evt.key == 'Escape') {
-    const openedPopup = document.querySelector('.popup_opened');
-    closePopup(evt, openedPopup)
-  };
+function nullifyFormValue(formElement) {
+  formElement.reset();
 };
 
 /**
- * This is a hadnler function which provides closing of popup by click
- * on overlay
- * @see {@link openPopup} The event is expressed when a popup is opened
- * @see {@link closePopup} It removes when a popup is closed
+ * The function saves profile data copying string values from the popup's input fields
+ * to text blocks.
 */
-function overlayHandler (evt) {
-  const openedPopup = document.querySelector('.popup_opened');
-  if (evt.target == openedPopup) {
-    closePopup(evt, openedPopup);
-  }
+function saveProfileData() {
+  userName.textContent = userNameInput.value;
+  userAbout.textContent = userAboutInput.value;
 };
-
-/**
- * This is a hadnler for all profile events. When a user clicks on a button
- * which is in the profle section, the handler catches the event and execute
- * code
- * Now there are 2 registered events:
- * 1. Button of editing profle
- * 2. Button of adding a new card
- * In the neaest feature it is planned to add a function of changing profile
- * photo
-*/
-function profileHandler (evt) {
-  if (evt.target == buttonEditProfile) {
-    openPopup(popupEditProfile);
-  } else if (evt.target == buttonAddCard) {
-    openPopup(popupAddCard);
-    nullifyFormValue(popupAddCard);
-  }
-}
 
 /**
  * The function shows popup element by changing some CSS properties [visibility and opacity]
@@ -88,12 +64,8 @@ function profileHandler (evt) {
  * is supposed to be opened
 */
 function openPopup(popupElement) {
-  const buttonClosePopup = popupElement.querySelector('.button_type_close-popup');
-  buttonClosePopup.addEventListener('click', closePopup);
-
-  document.addEventListener('keydown', escapeHandler);
-  popupElement.addEventListener('click', overlayHandler);
   popupElement.classList.add('popup_opened');
+  document.addEventListener('keydown', handlePopupKeyboardEvents);
 };
 
 /**
@@ -107,8 +79,8 @@ function openPopup(popupElement) {
 */
 function closePopup(evt, popupElement = evt.target.closest('.popup')) {
   popupElement.classList.remove('popup_opened');
-  document.removeEventListener('keydown', escapeHandler);
-}
+  document.removeEventListener('keydown', handlePopupKeyboardEvents);
+};
 
 /**
  * The function submits forms. It executed 2 actions:
@@ -123,25 +95,57 @@ function submitPopup(evt) {
 };
 
 /**
- * The function saves profile data copying string values from the popup's input fields
- * to text blocks.
+ * This is a hadnler function which deals with the hotkey of popup
+ * @see {@link openPopup} The event is expressed when a popup is opened
+ * @see {@link closePopup} It removes when a popup is closed
 */
-function saveProfileData() {
-  userName.textContent = userNameInput.value;
-  userAbout.textContent = userAboutInput.value;
+function handlePopupKeyboardEvents(evt) {
+  if (evt.key == 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(evt, openedPopup)
+  };
 };
 
 /**
- * The function nullifies values of some popup's input fields
- * @param {string} popupElement necessary argument which should reffer to popup element whose
- * values are supposed to be nullified.
+ * This is a handler of popup`s mouse events
 */
-function nullifyFormValue(popupElement) {
-  const formElement = popupElement.querySelectorAll('.form__input');
-  formElement.forEach((item) => { item.value = '' });
+function handlePopupMouseEvents (evt) {
+  if (evt.target.classList.contains('popup')) {
+    closePopup(evt, evt.target);
+  } else if (evt.target.classList.contains('button_type_close-popup')) {
+    closePopup(evt);
+  }
 };
 
-function cardsHandler (evt) {
+/**
+ * This is a hadnler of all profile events. When a user clicks on a button
+ * which is in the profle section, the handler catches the event and execute
+ * code
+ * Now there are 2 registered events:
+ * 1. Button of editing profle
+ * 2. Button of adding a new card
+ * In the neaest feature it is planned to add a function of changing profile
+ * photo
+*/
+function handleProfileSectionEvents (evt) {
+  if (evt.target == buttonEditProfile) {
+    addValuePopupEditProfile();
+    openPopup(popupEditProfile);
+  } else if (evt.target == buttonAddCard) {
+    openPopup(popupAddCard);
+  }
+};
+
+/**
+ * This is a hadnler of all cards section events. When a user clicks on a button
+ * which is in the section, the handler catches the event and execute
+ * code
+ * Now there are 3 registered events:
+ * 1. Like
+ * 2. Delete card
+ * 3. Zoom image
+*/
+function handleCardsSectionEvents (evt) {
   if (evt.target.classList.contains('card__btn-like-card')) {
     evt.target.classList.toggle('card__btn-like-card_activated')
   } else if (evt.target.classList.contains('card__btn-delete-card')) {
@@ -154,26 +158,31 @@ function cardsHandler (evt) {
     openPopup(popupCardZoom);
   }
 };
+
 /**
  * @constructor
- * The function adds card to the page by clonning templates.
+ * The function creates code structure of new card
  * @param {object} elem necessary argument which should reffer to the data source (f. i., variable
  * or database)
 */
 function createCard(elem) {
   // selection of elements
-  const cardTemplate = document.querySelector('#card').content.querySelector('.card').cloneNode(true);
-  const cardTitle = cardTemplate.querySelector('.card__title');
-  const cardImage = cardTemplate.querySelector('.card__image');
+  cardClone = cardTemplate.cloneNode(true);
+  const cardTitle = cardClone.querySelector('.card__title');
+  const cardImage = cardClone.querySelector('.card__image');
 
   // pasting data
   cardImage.src = elem.link;
   cardImage.alt = `Фотография места "${elem.name}"`;
   cardTitle.textContent = elem.name;
 
-  return cardTemplate;
+  return cardClone;
 };
 
+/**
+ * The function adds created card to the DOM
+ * @param {object} card necessary argument which should reffer to the markup of a new card
+*/
 function renderCard(card = createCard(initialCards)) {
   cardsContainer.prepend(card);
 }
@@ -203,7 +212,10 @@ function initCards(data) {
  * with the main page.
 */
 function enableEventListeners() {
-  profile.addEventListener('click', profileHandler);
+  popupList.forEach(popup => {
+    popup.addEventListener('mousedown', handlePopupMouseEvents);
+  });
+  profile.addEventListener('click', handleProfileSectionEvents);
   formEditProfile.addEventListener('submit', evt => {
     submitPopup(evt);
     saveProfileData();
@@ -215,12 +227,12 @@ function enableEventListeners() {
       link: cardImageLinkInput.value,
     }
     renderCard(createCard(newCard));
+    nullifyFormValue(evt.target);
   });
-  cards.addEventListener('click', cardsHandler);
-}
+  cards.addEventListener('click', handleCardsSectionEvents);
+};
 
 // GENERAL CALL FUNCTION
-addValuePopup()
 enableValidation();
 initCards(initialCards);
 enableEventListeners();

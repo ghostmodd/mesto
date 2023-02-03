@@ -8,8 +8,7 @@
  * @param {string} validationMessage necessary argument which should contain
  * text which is to be shown to user
 */
-function showInputError (formElement, inputElement, validationMessage) {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+function showInputError (inputElement, errorElement, validationMessage) {
   inputElement.classList.add('form__input_type_error');
   errorElement.textContent = validationMessage;
   errorElement.classList.add('form__input-error_active');
@@ -23,8 +22,7 @@ function showInputError (formElement, inputElement, validationMessage) {
  * @param {string} inputElement necessary argument which should reffer to the
  * input where no longer aren't any mistakes
 */
-function hideInputError (formElement, inputElement) {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+function hideInputError (inputElement, errorElement) {
   inputElement.classList.remove('form__input_type_error');
   errorElement.textContent = '';
   errorElement.classList.remove('form__input-error_active');
@@ -49,9 +47,7 @@ function hasInvalidInput (inputList) {
  * @param {array} inputList necessary argument which should contain array
  * of form's input list
 */
-function toggleButtonState (formElement, inputList) {
-  const submitButton = formElement.querySelector('.form__btn-submit');
-
+function toggleButtonState (inputList, submitButton) {
   if (hasInvalidInput(inputList)) {
     submitButton.classList.add('form__btn-submit_disabled');
     submitButton.setAttribute('disabled', '');
@@ -62,24 +58,30 @@ function toggleButtonState (formElement, inputList) {
 };
 
 /**
+ * This function disables a specific button if it's needed
+ * @param {string} submitButton necessary argument which should reffer to the
+ * button which should be disabled
+*/
+function disableButtonState (submitButton) {
+  submitButton.classList.add('form__btn-submit_disabled');
+  submitButton.setAttribute('disabled', '');
+};
+
+/**
  * This function checks if any input of form has problems with validation
  * and decides what action to do
- * @param {string} formElement necessary argument which should reffer to form
- * where the functions works. It is often an opened form
  * @param {string} inputElement necessary argument which should reffer to the
  * input to check
  * @param {array} inputList necessary argument which should contain array
  * of form's input list
 */
-function checkValidation (formElement, inputElement, inputList) {
-  inputElement.addEventListener('input', () => {
+function checkValidation (inputList, inputElement, errorElement, submitButton) {
     if (!inputElement.validity.valid) {
-      showInputError (formElement, inputElement, inputElement.validationMessage);
+      showInputError (inputElement, errorElement, inputElement.validationMessage);
     } else {
-      hideInputError (formElement, inputElement)
+      hideInputError (inputElement, errorElement)
     }
-  });
-  toggleButtonState(formElement, inputList);
+    toggleButtonState(inputList, submitButton);
 };
 
 /**
@@ -87,13 +89,17 @@ function checkValidation (formElement, inputElement, inputList) {
  * @param {string} formElement necessary argument which should reffer to form
  * where it's needed to set listeners
 */
-function setInputValidation (formElement) {
-  const inputList = Array.from(formElement.querySelectorAll('.form__input'));
-
+function setInputValidation (formElement, inputList, submitButton) {
   inputList.forEach(inputElement => {
-    inputElement.addEventListener('input', () => { checkValidation(formElement, inputElement, inputList) });
+    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+    inputElement.addEventListener('input', () => { checkValidation(inputList, inputElement, errorElement, submitButton) });
   });
-  toggleButtonState(formElement, inputList);
+
+  if (formElement == formAddCard) {
+    formElement.addEventListener('submit', () => { disableButtonState(submitButton) });
+  }
+
+  toggleButtonState(inputList, submitButton);
 };
 
 /**
@@ -108,5 +114,9 @@ function setInputValidation (formElement) {
 function enableValidation () {
   const formList = Array.from(document.querySelectorAll('.form'));
 
-  formList.forEach(formElement => { setInputValidation(formElement) });
+  formList.forEach(formElement => {
+    const inputList = Array.from(formElement.querySelectorAll('.form__input'));
+    const submitButton = formElement.querySelector('.form__btn-submit');
+    setInputValidation(formElement, inputList, submitButton);
+  });
 };
