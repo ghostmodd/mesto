@@ -184,7 +184,7 @@ function createCard(elem) {
  * @param {object} card necessary argument which should reffer to the markup of a new card
 */
 function renderCard(card = createCard(initialCards)) {
-  cardsContainer.prepend(card);
+  cards.prepend(card);
 }
 
 /**
