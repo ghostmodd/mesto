@@ -1,34 +1,9 @@
-// DATA and GENERAL SELECTORS
-// profile varies
-const profile = document.querySelector('.profile');
-const userName = document.querySelector('.profile__user-name');
-const userNameInput = document.querySelector('.form__input_type_user-name');
-const userAbout = document.querySelector('.profile__about-user');
-const userAboutInput = document.querySelector('.form__input_type_about-user');
-
-// cards
-const cards = document.querySelector('.cards');
-const cardTemplate = document.querySelector('#card').content.querySelector('.card');
-
-
-const popupList = document.querySelectorAll('.popup');
-// selectors for popup-edit-profile
-const popupEditProfile = document.querySelector('.popup_edit-profile');
-const formEditProfile = document.querySelector('.form_edit-profile');
-const buttonEditProfile = document.querySelector('.profile__btn-edit-profile');
-
-// selectors for popup-add-card
-const popupAddCard = document.querySelector('.popup_add-card');
-const formAddCard = document.querySelector('.form_add-card');
-const buttonAddCard = document.querySelector('.profile__btn-add-card');
-const cardTitleInput = formAddCard.querySelector('.form__input_type_card-title');
-const cardImageLinkInput = formAddCard.querySelector('.form__input_type_image-link');
-
-// selectors for popup-card-zoom
-const popupCardZoom = document.querySelector('.popup_card-zoom');
-const imageCardZoom = document.querySelector('.card-zoom__image');
-const captionCardZoom = document.querySelector('.card-zoom__caption');
-
+// imports and exports
+import { profile, userName, userNameInput, userAbout, userAboutInput, cards, popupList,
+  popupEditProfile, formEditProfile, buttonEditProfile, popupAddCard, formAddCard, buttonAddCard,
+  cardTitleInput, cardImageLinkInput, config } from './constants.js'
+import { FormValidator } from "./FormValidator.js"
+import { Card } from "./Card.js"
 
 
 // FUNCTIONS
@@ -137,57 +112,6 @@ function handleProfileSectionEvents (evt) {
 };
 
 /**
- * This is a hadnler of all cards section events. When a user clicks on a button
- * which is in the section, the handler catches the event and execute
- * code
- * Now there are 3 registered events:
- * 1. Like
- * 2. Delete card
- * 3. Zoom image
-*/
-function handleCardsSectionEvents (evt) {
-  if (evt.target.classList.contains('card__btn-like-card')) {
-    evt.target.classList.toggle('card__btn-like-card_activated')
-  } else if (evt.target.classList.contains('card__btn-delete-card')) {
-    evt.target.closest('.card').remove();
-  } else if (evt.target.classList.contains('card__image')) {
-    const cardTitle = evt.target.closest('.card').querySelector('.card__title');
-    imageCardZoom.src = evt.target.src;
-    imageCardZoom.alt = evt.target.alt;
-    captionCardZoom.textContent = cardTitle.textContent;
-    openPopup(popupCardZoom);
-  }
-};
-
-/**
- * @constructor
- * The function creates code structure of new card
- * @param {object} elem necessary argument which should reffer to the data source (f. i., variable
- * or database)
-*/
-function createCard(elem) {
-  // selection of elements
-  const cardClone = cardTemplate.cloneNode(true);
-  const cardTitle = cardClone.querySelector('.card__title');
-  const cardImage = cardClone.querySelector('.card__image');
-
-  // pasting data
-  cardImage.src = elem.link;
-  cardImage.alt = `Фотография места "${elem.name}"`;
-  cardTitle.textContent = elem.name;
-
-  return cardClone;
-};
-
-/**
- * The function adds created card to the DOM
- * @param {object} card necessary argument which should reffer to the markup of a new card
-*/
-function renderCard(card = createCard(initialCards)) {
-  cards.prepend(card);
-}
-
-/**
  * The function initializes cards from data source. It uses forEach to paste cards with information
  * which is contained in the data source
  * @param {object} data necessary argument which should reffer to the data source (f. i., variable
@@ -196,7 +120,8 @@ function renderCard(card = createCard(initialCards)) {
 */
 function initCards(data) {
   data.forEach(elem => {
-    renderCard(createCard(elem));
+    const newCard = new Card(elem.name, elem.link, config.cardTemplateID, config);
+    newCard.render();
   });
 };
 
@@ -222,17 +147,16 @@ function enableEventListeners() {
   });
   formAddCard.addEventListener('submit', evt => {
     submitPopup(evt);
-    const newCard = {
-      name: cardTitleInput.value,
-      link: cardImageLinkInput.value,
-    }
-    renderCard(createCard(newCard));
+    const newCard = new Card(cardTitleInput.value, cardImageLinkInput.value, config.cardTemplateID, config);
+    newCard.render();
     nullifyFormValue(evt.target);
   });
-  cards.addEventListener('click', handleCardsSectionEvents);
 };
 
 // GENERAL CALL FUNCTION
-enableValidation(validationConfig);
+Array.from(document.querySelectorAll('.form')).forEach(formElement => {
+  const formValidation = new FormValidator(formElement, config);
+  formValidation.enableValidation();
+});
 initCards(initialCards);
 enableEventListeners();
