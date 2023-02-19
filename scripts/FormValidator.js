@@ -1,5 +1,3 @@
-import { formAddCard } from "./constants.js";
-
 export class FormValidator {
   constructor(formElement, config) {
     this._config = config;
@@ -90,7 +88,7 @@ export class FormValidator {
       inputElement.addEventListener('input', () => { this._checkValidation(inputElement) });
     });
 
-    if (this._formElement == formAddCard) {
+    if (this._formElement.classList.contains('form_add-card')) {
       this._formElement.addEventListener('submit', () => { this._disableButtonState() });
     }
 

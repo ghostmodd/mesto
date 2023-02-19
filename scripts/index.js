@@ -1,7 +1,7 @@
 // imports and exports
-import { profile, userName, userNameInput, userAbout, userAboutInput, cards, popupList,
+import { profile, userName, userNameInput, userAbout, userAboutInput, popupList,
   popupEditProfile, formEditProfile, buttonEditProfile, popupAddCard, formAddCard, buttonAddCard,
-  cardTitleInput, cardImageLinkInput, config } from './constants.js'
+  cardTitleInput, cardImageLinkInput, popupCardZoom, imageCardZoom, captionCardZoom, config } from './constants.js'
 import { FormValidator } from "./FormValidator.js"
 import { Card } from "./Card.js"
 
@@ -111,6 +111,29 @@ function handleProfileSectionEvents (evt) {
   }
 };
 
+/** The function handles clicks in a particular card`s area using progation
+ * and delegation.
+ * There are 3 actions:
+ * 1. Like card;
+ * 2. Delete card;
+ * 3. Zoom card`s image.
+*/
+function handleCardClick (evt, title, image) {
+  if (evt.target.classList.contains(this._config.cardBtnLikeCard)) {
+    // like card
+    evt.target.classList.toggle(this._config.cardBtnLikeCardActiveted)
+  } else if (evt.target.classList.contains(this._config.cardBtnDeleteCard)) {
+    // delete card
+    evt.target.closest('.card').remove();
+  } else if (evt.target.classList.contains(this._config.cardImage)) {
+    // zoom image
+    imageCardZoom.src = image;
+    imageCardZoom.alt = `Фотография места: ${title}`;
+    captionCardZoom.textContent = title;
+    openPopup(popupCardZoom);
+  }
+}
+
 /**
  * The function initializes cards from data source. It uses forEach to paste cards with information
  * which is contained in the data source
@@ -120,7 +143,7 @@ function handleProfileSectionEvents (evt) {
 */
 function initCards(data) {
   data.forEach(elem => {
-    const newCard = new Card(elem.name, elem.link, config.cardTemplateID, config);
+    const newCard = new Card(elem.name, elem.link, config.cardTemplateID, cardsContainer, handleCardClick, config);
     newCard.render();
   });
 };
@@ -147,7 +170,7 @@ function enableEventListeners() {
   });
   formAddCard.addEventListener('submit', evt => {
     submitPopup(evt);
-    const newCard = new Card(cardTitleInput.value, cardImageLinkInput.value, config.cardTemplateID, config);
+    const newCard = new Card(cardTitleInput.value, cardImageLinkInput.value, config.cardTemplateID, cardsContainer, handleCardClick, config);
     newCard.render();
     nullifyFormValue(evt.target);
   });

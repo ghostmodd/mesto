@@ -1,4 +1,4 @@
-export { profile, userName, userNameInput, userAbout, userAboutInput, cards, popupList,
+export { profile, userName, userNameInput, userAbout, userAboutInput, cardsContainer, popupList,
   popupEditProfile, formEditProfile, buttonEditProfile, popupAddCard, formAddCard, buttonAddCard,
   cardTitleInput, cardImageLinkInput, popupCardZoom, imageCardZoom, captionCardZoom, config
 }
@@ -12,7 +12,7 @@ const userAbout = document.querySelector('.profile__about-user');
 const userAboutInput = document.querySelector('.form__input_type_about-user');
 
 // cards
-const cards = document.querySelector('.cards');
+const cardsContainer = document.querySelector('.cards');
 
 const popupList = document.querySelectorAll('.popup');
 // selectors for popup-edit-profile
