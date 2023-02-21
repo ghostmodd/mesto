@@ -1,6 +1,7 @@
 export { profile, userName, userNameInput, userAbout, userAboutInput, cardsContainer, popupList,
   popupEditProfile, formEditProfile, buttonEditProfile, popupAddCard, formAddCard, buttonAddCard,
-  cardTitleInput, cardImageLinkInput, popupCardZoom, imageCardZoom, captionCardZoom, config
+  cardTitleInput, cardImageLinkInput, popupCardZoom, imageCardZoom, captionCardZoom, formValidators,
+  config
 }
 
 // DATA and GENERAL SELECTORS
@@ -32,6 +33,10 @@ const popupCardZoom = document.querySelector('.popup_card-zoom');
 const imageCardZoom = document.querySelector('.card-zoom__image');
 const captionCardZoom = document.querySelector('.card-zoom__caption');
 
+// form validation objects
+const formValidators = {}
+
+// configuration
 const config = {
   // card
   cardTemplateID: '#card',

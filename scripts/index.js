@@ -1,8 +1,9 @@
 // imports and exports
 import {
   profile, userName, userNameInput, userAbout, userAboutInput, popupList,
-  popupEditProfile, formEditProfile, buttonEditProfile, popupAddCard, formAddCard, buttonAddCard,
-  cardTitleInput, cardImageLinkInput, popupCardZoom, imageCardZoom, captionCardZoom, config, cardsContainer
+  popupEditProfile, formEditProfile, buttonEditProfile, cardsContainer, popupAddCard, formAddCard,
+  buttonAddCard, cardTitleInput, cardImageLinkInput, popupCardZoom, imageCardZoom, captionCardZoom,
+  formValidators, config
 } from './constants.js'
 import { FormValidator } from "./FormValidator.js"
 import { Card } from "./Card.js"
@@ -14,8 +15,7 @@ import { Card } from "./Card.js"
 */
 function resetValidation(popupElement) {
   const formElement = popupElement.querySelector('.form');
-  const formValidation = new FormValidator(formElement, config);
-  formValidation.resetValidation();
+  formValidators[formElement.name].resetValidation();
 };
 
 /**
@@ -186,9 +186,17 @@ function enableEventListeners() {
 };
 
 // GENERAL CALL FUNCTION
-Array.from(document.querySelectorAll('.form')).forEach(formElement => {
-  const formValidation = new FormValidator(formElement, config);
-  formValidation.enableValidation();
-});
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector))
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(formElement, config)
+    const formName = formElement.getAttribute('name')
+
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+
+enableValidation(config);
 initCards(initialCards);
 enableEventListeners();
