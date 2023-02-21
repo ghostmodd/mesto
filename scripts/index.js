@@ -138,7 +138,7 @@ function handleCardClick(title, image) {
   openPopup(popupCardZoom);
 };
 
-/** The function adds a card to the DOM. */
+/** The function prepares a card for adding to the DOM */
 function createCard(cardTitle, cardImage) {
   const newCard = new Card(cardTitle, cardImage, config.cardTemplateID, handleCardClick, config);
   const cardElement = newCard.create();
