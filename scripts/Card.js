@@ -1,6 +1,5 @@
 export class Card {
-  constructor (cardTitle, cardImage, cardTemplate, cardsContainer, handleCardClick, config) {
-    this._cardsContainer = cardsContainer;
+  constructor (cardTitle, cardImage, cardTemplate, handleCardClick, config) {
     this._title = cardTitle;
     this._image = cardImage;
     this._template = cardTemplate;
@@ -12,25 +11,37 @@ export class Card {
     return document.querySelector(this._template).content.cloneNode(true);
   }
 
-  _create () {
+  _toggleLike(evt) {
+    evt.target.classList.toggle(this._config.cardBtnLikeCardActiveted);
+  }
+
+  _deleteCard(evt) {
+    evt.target.closest(this._config.cardSelector).remove();
+  }
+
+  _addEventListeners() {
+    this._card.querySelector(this._config.cardSelector).addEventListener('click', (evt) => {
+      if (evt.target.classList.contains(this._config.cardBtnLikeCard)) {
+        this._toggleLike(evt);
+      } else if (evt.target.classList.contains(this._config.cardBtnDeleteCard)) {
+        this._deleteCard(evt);
+      } else if (evt.target.classList.contains(this._config.cardImage)) {
+        this._handleCardClick(this._title, this._image);
+      }
+    });
+  };
+
+  create () {
     this._card = this._getCardFromTemplate();
     const cardTitle = this._card.querySelector(this._config.cardTitleSelector);
     const cardImage = this._card.querySelector(this._config.cardImageSelector);
 
     cardTitle.textContent = this._title;
     cardImage.src = this._image;
-    cardImage.alt = this._title;
+    cardImage.alt = `Фотография места: ${this._title}`;
 
     this._addEventListeners();
 
     return this._card;
-  }
-
-  render () {
-    this._cardsContainer.prepend(this._create());
-  }
-
-  _addEventListeners() {
-    this._card.querySelector('.card').addEventListener('click', (evt) => { this._handleCardClick(evt, this._title, this._image) });
   }
 };

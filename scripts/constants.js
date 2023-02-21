@@ -35,11 +35,13 @@ const captionCardZoom = document.querySelector('.card-zoom__caption');
 const config = {
   // card
   cardTemplateID: '#card',
+  cardSelector: '.card',
   cardTitleSelector: '.card__title',
   cardImageSelector: '.card__image',
   cardImage: 'card__image',
   cardBtnLikeCard: 'card__btn-like-card',
   cardBtnLikeCardActiveted: 'card__btn-like-card_activated',
+  cardBtnDeleteCardSelector: '.card__btn-delete-card',
   cardBtnDeleteCard: 'card__btn-delete-card',
 
   // form validation

@@ -4,7 +4,11 @@ export class FormValidator {
     this._formElement = formElement;
     this._submitButton = this._formElement.querySelector(this._config.submitButtonSelector);
     this._inputList = Array.from(this._formElement.querySelectorAll(this._config.inputSelector));
-  }
+  };
+
+  _getErrorElement(inputElement) {
+    return this._formElement.querySelector(`.${inputElement.id}-error`);
+  };
 
   /**
    * This function shows errors of input's validation. It selects an element
@@ -14,25 +18,26 @@ export class FormValidator {
    * @param {string} errorElement necessary argument which should refer to the
    * error message container
   */
-  _showErrorElement(inputElement, errorElement) {
+  _showErrorElement(inputElement, errorElement = this._getErrorElement(inputElement)) {
     inputElement.classList.add(this._config.inputErrorClass);
     errorElement.classList.add(this._config.activeInputErrorClass);
     errorElement.textContent = inputElement.validationMessage;
-  }
+  };
 
   /**
    * This function hides errors of input's validation. It selects an element
    * of mistake and change it's properties
    * @param {string} inputElement necessary argument which should reffer to the
    * input with a validation mistake
-   * @param {string} errorElement necessary argument which should refer to the
-   * error message container
+   * @param {string} errorElement unnecessary argument which should refer to the
+   * error message container. It looks for a relevant error element when it's
+   * unknown
   */
-  _hideErrorElement(inputElement, errorElement) {
+  _hideErrorElement(inputElement, errorElement = this._getErrorElement(inputElement)) {
     inputElement.classList.remove(this._config.inputErrorClass);
     errorElement.classList.remove(this._config.activeInputErrorClass);
     errorElement.textContent = '';
-  }
+  };
 
   /**
    * This function checks if any input of form has problems with validation
@@ -41,7 +46,7 @@ export class FormValidator {
     return this._inputList.some(inputElement => {
       return !inputElement.validity.valid;
     })
-  }
+  };
 
   /**
    * This function hanges properties of submit button
@@ -54,15 +59,20 @@ export class FormValidator {
       this._submitButton.classList.remove(this._config.disableButtonClass);
       this._submitButton.removeAttribute('disabled', '');
     }
-  }
+  };
 
   /**
-   * This function disables a specific button if it's needed
+   * This function resets validation options
   */
-  _disableButtonState() {
-    this._submitButton.classList.add(this._config.disableButtonClass);
-    this._submitButton.setAttribute('disabled', '');
-  }
+  resetValidation() {
+    this._toggleButtonState();
+
+    this._inputList.forEach(inputElement => {
+      if(inputElement.validity.valid) {
+        this._hideErrorElement(inputElement);
+      }
+    });
+  };
 
   /**
    * This function checks if any input of form has problems with validation
@@ -71,14 +81,13 @@ export class FormValidator {
    * input to check
   */
   _checkValidation(inputElement) {
-    const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
     if (!inputElement.validity.valid) {
-      this._showErrorElement(inputElement, errorElement);
+      this._showErrorElement(inputElement);
     } else {
-      this._hideErrorElement(inputElement, errorElement);
+      this._hideErrorElement(inputElement);
     }
     this._toggleButtonState();
-  }
+  };
 
   /**
    * This function enable validation by starting the chain of functions
@@ -87,11 +96,6 @@ export class FormValidator {
     this._inputList.forEach(inputElement => {
       inputElement.addEventListener('input', () => { this._checkValidation(inputElement) });
     });
-
-    if (this._formElement.classList.contains('form_add-card')) {
-      this._formElement.addEventListener('submit', () => { this._disableButtonState() });
-    }
-
     this._toggleButtonState();
-  }
+  };
 };

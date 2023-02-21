@@ -1,12 +1,23 @@
 // imports and exports
-import { profile, userName, userNameInput, userAbout, userAboutInput, popupList,
+import {
+  profile, userName, userNameInput, userAbout, userAboutInput, popupList,
   popupEditProfile, formEditProfile, buttonEditProfile, popupAddCard, formAddCard, buttonAddCard,
-  cardTitleInput, cardImageLinkInput, popupCardZoom, imageCardZoom, captionCardZoom, config } from './constants.js'
+  cardTitleInput, cardImageLinkInput, popupCardZoom, imageCardZoom, captionCardZoom, config, cardsContainer
+} from './constants.js'
 import { FormValidator } from "./FormValidator.js"
 import { Card } from "./Card.js"
 
 
 // FUNCTIONS
+/**
+ * The function resets validation before oppening popup
+*/
+function resetValidation(popupElement) {
+  const formElement = popupElement.querySelector('.form');
+  const formValidation = new FormValidator(formElement, config);
+  formValidation.resetValidation();
+};
+
 /**
  * The function sets values for 'popup-edit-profile' input fields
 */
@@ -84,7 +95,7 @@ function handlePopupKeyboardEvents(evt) {
 /**
  * This is a handler of popup`s mouse events
 */
-function handlePopupMouseEvents (evt) {
+function handlePopupMouseEvents(evt) {
   if (evt.target.classList.contains('popup')) {
     closePopup(evt, evt.target);
   } else if (evt.target.classList.contains('button_type_close-popup')) {
@@ -102,11 +113,13 @@ function handlePopupMouseEvents (evt) {
  * In the neaest feature it is planned to add a function of changing profile
  * photo
 */
-function handleProfileSectionEvents (evt) {
+function handleProfileSectionEvents(evt) {
   if (evt.target == buttonEditProfile) {
     addValuePopupEditProfile();
+    resetValidation(popupEditProfile);
     openPopup(popupEditProfile);
   } else if (evt.target == buttonAddCard) {
+    resetValidation(popupAddCard);
     openPopup(popupAddCard);
   }
 };
@@ -118,21 +131,19 @@ function handleProfileSectionEvents (evt) {
  * 2. Delete card;
  * 3. Zoom card`s image.
 */
-function handleCardClick (evt, title, image) {
-  if (evt.target.classList.contains(this._config.cardBtnLikeCard)) {
-    // like card
-    evt.target.classList.toggle(this._config.cardBtnLikeCardActiveted)
-  } else if (evt.target.classList.contains(this._config.cardBtnDeleteCard)) {
-    // delete card
-    evt.target.closest('.card').remove();
-  } else if (evt.target.classList.contains(this._config.cardImage)) {
-    // zoom image
-    imageCardZoom.src = image;
-    imageCardZoom.alt = `Фотография места: ${title}`;
-    captionCardZoom.textContent = title;
-    openPopup(popupCardZoom);
-  }
-}
+function handleCardClick(title, image) {
+  imageCardZoom.src = image;
+  imageCardZoom.alt = `Фотография места: ${title}`;
+  captionCardZoom.textContent = title;
+  openPopup(popupCardZoom);
+};
+
+/** The function adds a card to the DOM. */
+function createCard(cardTitle, cardImage) {
+  const newCard = new Card(cardTitle, cardImage, config.cardTemplateID, handleCardClick, config);
+  const cardElement = newCard.create();
+  return cardElement;
+};
 
 /**
  * The function initializes cards from data source. It uses forEach to paste cards with information
@@ -143,8 +154,7 @@ function handleCardClick (evt, title, image) {
 */
 function initCards(data) {
   data.forEach(elem => {
-    const newCard = new Card(elem.name, elem.link, config.cardTemplateID, cardsContainer, handleCardClick, config);
-    newCard.render();
+    cardsContainer.prepend(createCard(elem.name, elem.link));
   });
 };
 
@@ -170,8 +180,7 @@ function enableEventListeners() {
   });
   formAddCard.addEventListener('submit', evt => {
     submitPopup(evt);
-    const newCard = new Card(cardTitleInput.value, cardImageLinkInput.value, config.cardTemplateID, cardsContainer, handleCardClick, config);
-    newCard.render();
+    cardsContainer.prepend(createCard(cardTitleInput.value, cardImageLinkInput.value));
     nullifyFormValue(evt.target);
   });
 };
