@@ -1,7 +1,7 @@
 export class Card {
-  constructor (cardTitle, cardImage, cardTemplate, handleCardClick, config) {
+  constructor ({ cardTitle, cardImageLink }, cardTemplate, handleCardClick, config) {
     this._title = cardTitle;
-    this._image = cardImage;
+    this._image = cardImageLink;
     this._template = cardTemplate;
     this._config = config;
     this._handleCardClick = handleCardClick;
@@ -26,7 +26,7 @@ export class Card {
       } else if (evt.target.classList.contains(this._config.cardBtnDeleteCard)) {
         this._deleteCard(evt);
       } else if (evt.target.classList.contains(this._config.cardImage)) {
-        this._handleCardClick(this._title, this._image);
+        this._handleCardClick(evt.target, this._title);
       }
     });
   };
@@ -41,7 +41,6 @@ export class Card {
     cardImage.alt = `Фотография места: ${this._title}`;
 
     this._addEventListeners();
-
     return this._card;
   }
 };
