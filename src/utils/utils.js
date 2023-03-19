@@ -54,6 +54,7 @@ function handleProfileSectionEvents(evt) {
   if (evt.target == buttonEditProfile) {
     popupEditProfile.openPopup();
     addValuePopupEditProfile();
+    resetValidation(popupEditProfile._popupElement);
   } else if (evt.target == buttonAddCard) {
     popupAddCard.openPopup();
     resetValidation(popupAddCard._popupElement);

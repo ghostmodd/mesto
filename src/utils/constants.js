@@ -10,10 +10,6 @@ export { profile, userNameInput, userAboutInput,
 const profile = document.querySelector('.profile');
 const userNameInput = document.querySelector('.form__input_type_user-name');
 const userAboutInput = document.querySelector('.form__input_type_about-user');
-const userInfoElements = {
-  userName: config.userNameSelector,
-  userDescription: config.userDescriptionSelector,
-}
 
 // buttons
 const buttonEditProfile = document.querySelector('.profile__btn-edit-profile');
@@ -93,3 +89,8 @@ const initialCards = {
 // images
 const headerLogo = new URL('../images/header__logo.svg', import.meta.url);
 const profileAvatar = new URL('../images/profile__avatar.jpg', import.meta.url);
+
+const userInfoElements = {
+  userName: config.userNameSelector,
+  userDescription: config.userDescriptionSelector,
+}
