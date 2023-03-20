@@ -2,18 +2,19 @@ export class Popup {
   constructor (popupSelector, config) {
     this._config = config;
     this._popupSelector = popupSelector;
-    this._popupElement = document.querySelector(popupSelector);
-    this._btnClosePopup = this._popupElement.querySelector(this._config.buttonClosePopupSelector);
+    this.popupElement = document.querySelector(popupSelector);
+    this._btnClosePopup = this.popupElement.querySelector(this._config.buttonClosePopupSelector);
+    this._handleEscClose = this._handleEscClose.bind(this);
   }
 
   openPopup () {
-    this._popupElement.classList.add(this._config.popupOpenedClass);
-    document.addEventListener('keydown', (evt) => { this._handleEscClose(evt) });
+    this.popupElement.classList.add(this._config.popupOpenedClass);
+    document.addEventListener('keydown', this._handleEscClose);
   }
 
   closePopup () {
-    this._popupElement.classList.remove(this._config.popupOpenedClass);
-    document.removeEventListener('keydown', (evt) => { this._handleEscClose(evt) });
+    this.popupElement.classList.remove(this._config.popupOpenedClass);
+    document.removeEventListener('keydown', this._handleEscClose);
   }
 
   _handleEscClose (evt) {
@@ -23,8 +24,8 @@ export class Popup {
   }
 
   setEventListeners () {
-    this._popupElement.addEventListener('click', (evt) => {
-      if (evt.target == this._popupElement) {
+    this.popupElement.addEventListener('click', (evt) => {
+      if (evt.target == this.popupElement) {
         this.closePopup();
       } else if (evt.target == this._btnClosePopup) {
         this.closePopup();

@@ -10,6 +10,7 @@
 * HTML 5
 * CSS
 * JavaScript
+* Webpack
 * Git
 
 **Ссылки**
