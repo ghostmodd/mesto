@@ -6,11 +6,15 @@ import { UserInfo } from "../components/UserInfo.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import '../pages/index.css';
+import { Api } from '../components/Api.js';
 
 export { userInfo, cardSection, popupEditProfile, popupAddCard, popupCardZoom}
 
 
 profile.addEventListener('click', handleProfileSectionEvents);
+
+const api = new Api('cohort-61', 'aeb2a898-7182-4955-a890-b5a3c389b27c');
+api.getProfileData();
 
 const userInfo = new UserInfo(userInfoElements);
 const cardSection = new Section (initialCards, config.cardContainerSelector);
