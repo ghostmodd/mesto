@@ -122,7 +122,7 @@ function handleProfileSectionEvents(evt) {
   } else if (evt.target == buttonAddCard) {
     popupAddCard.openPopup();
     resetValidation(popupAddCard.popupElement);
-  } else if (evt.target == buttonChangeAvatar) {
+  } else if (evt.target == buttonChangeAvatar || evt.target == profileAvatar) {
     popupChangeAvatar.openPopup();
     resetValidation(popupChangeAvatar.popupElement);
   }

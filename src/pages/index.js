@@ -1,5 +1,5 @@
 // imports and exports
-import { headerLogo, profilaAvatar, profile, config } from '../utils/constants.js'
+import { headerLogo, profile, config } from '../utils/constants.js'
 import { enableValidation, handleProfileSectionEvents, handleEditProfile, handleAddCard,
   handleDeleteCard, cardSectionRenderer, handleConfirmDelete, handleChangeAvatar } from '../utils/utils.js'
 import { Section } from '../components/Section.js';

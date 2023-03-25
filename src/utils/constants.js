@@ -8,6 +8,7 @@ const cardList = {};
 // DATA and GENERAL SELECTORS
 // profile varies
 const profile = document.querySelector('.profile');
+const profileAvatar = document.querySelector('.profile__avatar');
 const buttonChangeAvatar = document.querySelector('.profile__btn-change-avatar');
 const userNameInput = document.querySelector('.form__input_type_user-name');
 const userAboutInput = document.querySelector('.form__input_type_about-user');
@@ -59,4 +60,3 @@ const config = {
 
 // images
 const headerLogo = new URL('../images/header__logo.svg', import.meta.url);
-const profileAvatar = new URL('../images/profile__avatar.jpg', import.meta.url);
