@@ -8,7 +8,7 @@ const cardList = {};
 // DATA and GENERAL SELECTORS
 // profile varies
 const profile = document.querySelector('.profile');
-const profileAvatar = document.querySelector('.profile__avatar');
+const profileAvatar = document.querySelector('.profile__avatar-background');
 const buttonChangeAvatar = document.querySelector('.profile__btn-change-avatar');
 const userNameInput = document.querySelector('.form__input_type_user-name');
 const userAboutInput = document.querySelector('.form__input_type_about-user');
