@@ -1,14 +1,19 @@
 import {
-  popupEditProfile, popupAddCard, userInfo, cardSection, popupCardZoom
+  popupEditProfile, popupAddCard, userInfo, cardSection, popupCardZoom, api, popupConfirmDeleteCard, popupChangeAvatar,
+  currentUserID
 } from '../pages/index.js'
 import {
-  userNameInput, userAboutInput, buttonEditProfile,  buttonAddCard,
-  formValidators
+  userNameInput, userAboutInput, buttonEditProfile, buttonAddCard,
+  formValidators, buttonChangeAvatar, cardList, config
 } from './constants.js'
 import { FormValidator } from "../components/FormValidator.js"
-export { resetValidation, handleProfileSectionEvents,
+import { Card } from "../components/Card.js"
+export {
+  resetValidation, handleProfileSectionEvents,
   handleCardClick, enableValidation, handleEditProfile,
-  handleAddCard }
+  handleAddCard, handleConfirmDelete, handleChangeAvatar,
+  cardSectionRenderer, handleDeleteCard
+}
 
 // FUNCTIONS
 /**
@@ -28,18 +33,74 @@ function addValuePopupEditProfile() {
   userAboutInput.value = userDescription;
 };
 
-const handleEditProfile = function (evt, {userName, aboutUser}) {
+const handleEditProfile = function (evt, {userName, userDescription}, submitButton) {
   evt.preventDefault();
-  userInfo.setUserInfo(userName, aboutUser);
-  popupEditProfile.closePopup();
+  submitButton.textContent = 'Сохранение...';
+  api.editProfileData(userName, userDescription, submitButton).then(() => {
+    userInfo.setUserInfo(userName, userDescription);
+  }).then(() => {
+    popupEditProfile.closePopup();
+  });
 }
 
-const handleAddCard = function (evt, newCardInfo) {
+const handleAddCard = function (evt, newCardInfo, submitButton) {
   evt.preventDefault();
-  cardSection.addItem(newCardInfo);
-  popupAddCard.closePopup();
+  submitButton.textContent = 'Создание...';
+  api.addCard(newCardInfo, submitButton).then(cardInfo => {
+    cardSection.addItem(cardInfo);
+  }).then(() => {
+    popupAddCard.closePopup();
+  });
+}
+const cardSectionRenderer = function (item, container) {
+  const newCard = new Card(item, currentUserID, config.cardTemplateID, handleCardClick, handleDeleteCard, handleLikeCard, config);
+  const cardElement = newCard.create();
+  cardList[newCard._cardID] = newCard;
+  container.prepend(cardElement);
 }
 
+const handleDeleteCard = function (evt, cardID) {
+  const data = {
+    cardElement: evt.target.closest(this._config.cardSelector),
+    cardID: cardID,
+  }
+  popupConfirmDeleteCard.openPopup(data);
+}
+
+const handleConfirmDelete = function(evt, { cardElement, cardID }, submitButton) {
+  evt.preventDefault();
+  submitButton.textContent = 'Удаление...';
+  api.deleteCard(cardID, submitButton).then(() => {
+    cardElement.remove();
+    popupConfirmDeleteCard.closePopup();
+  });
+}
+
+const handleLikeCard = function (cardID, isLiked) {
+  if (isLiked) {
+    api.likeCard(cardID).then((res) => {
+      return res;
+    }).then(newData => {
+      cardList[cardID].refreshLikesData(newData);
+    });
+  } else {
+    api.dislikeCard(cardID).then((res) => {
+      return res;
+    }).then(newData => {
+      cardList[cardID].refreshLikesData(newData);
+    });
+  }
+}
+
+const handleChangeAvatar = function (evt, avatarSrc, submitButton) {
+  evt.preventDefault();
+  submitButton.textContent = 'Сохранение...';
+  api.changeAvatar(avatarSrc.avatarImageLink, submitButton).then(() => {
+    userInfo.changeAvatar(avatarSrc.avatarImageLink);
+  }).then(() => {
+    popupChangeAvatar.closePopup();
+  });
+}
 /**
  * This is a hadnler of all profile events. When a user clicks on a button
  * which is in the profle section, the handler catches the event and execute
@@ -58,6 +119,12 @@ function handleProfileSectionEvents(evt) {
   } else if (evt.target == buttonAddCard) {
     popupAddCard.openPopup();
     resetValidation(popupAddCard.popupElement);
+  } else if (evt.target == buttonAddCard) {
+    popupAddCard.openPopup();
+    resetValidation(popupAddCard.popupElement);
+  } else if (evt.target == buttonChangeAvatar) {
+    popupChangeAvatar.openPopup();
+    resetValidation(popupChangeAvatar.popupElement);
   }
 };
 
@@ -71,8 +138,6 @@ function handleProfileSectionEvents(evt) {
 function handleCardClick(imgElement, caption) {
   popupCardZoom.openPopup(imgElement, caption);
 };
-// profile.addEventListener('click', handleProfileSectionEvents);
-
 
 const enableValidation = (config) => {
   const formList = Array.from(document.querySelectorAll(config.formSelector))

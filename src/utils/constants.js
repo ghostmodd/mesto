@@ -1,13 +1,14 @@
-import { Card } from "../components/Card.js"
-import { handleCardClick } from "./utils.js";
-export { profile, userNameInput, userAboutInput,
-  buttonEditProfile, buttonAddCard, formValidators,
-  initialCards, userInfoElements, config
+export {
+  profile, userNameInput, userAboutInput,
+  buttonEditProfile, cardList, buttonAddCard, formValidators,
+  buttonChangeAvatar, config
 }
 
+const cardList = {};
 // DATA and GENERAL SELECTORS
 // profile varies
 const profile = document.querySelector('.profile');
+const buttonChangeAvatar = document.querySelector('.profile__btn-change-avatar');
 const userNameInput = document.querySelector('.form__input_type_user-name');
 const userAboutInput = document.querySelector('.form__input_type_about-user');
 
@@ -23,6 +24,7 @@ const config = {
   // profile
   userNameSelector: '.profile__user-name',
   userDescriptionSelector: '.profile__about-user',
+  userAvatarSelector: '.profile__avatar',
 
   // card
   cardContainerSelector: '.cards',
@@ -31,6 +33,7 @@ const config = {
   cardTitleSelector: '.card__title',
   cardImageSelector: '.card__image',
   cardImage: 'card__image',
+  cardBtnLikeCardSelector: '.card__btn-like-card',
   cardBtnLikeCard: 'card__btn-like-card',
   cardBtnLikeCardActiveted: 'card__btn-like-card_activated',
   cardBtnDeleteCardSelector: '.card__btn-delete-card',
@@ -41,6 +44,8 @@ const config = {
   popupEditProfileSelector: '.popup_edit-profile',
   popupAddCardSelector: '.popup_add-card',
   popupCardZoomSelector: '.popup_card-zoom',
+  popupConfirmDeleteCardSelector: '.popup_confirm-delete-card',
+  popupChangeAvatarSelector: '.popup_change-avatar',
   buttonClosePopupSelector: '.button_type_close-popup',
 
   // form validation
@@ -52,45 +57,6 @@ const config = {
   disableButtonClass: 'form__btn-submit_disabled',
 };
 
-const initialCards = {
-  items: [
-    {
-      cardTitle: 'Архыз',
-      cardImageLink: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
-    },
-    {
-      cardTitle: 'Челябинская область',
-      cardImageLink: 'https://i.ibb.co/5YBsnbF/kira-porotikova-4d-PT83cs-Tic-unsplash.jpg',
-    },
-    {
-      cardTitle: 'Иваново',
-      cardImageLink: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
-    },
-    {
-      cardTitle: 'Камчатка',
-      cardImageLink: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
-    },
-    {
-      cardTitle: 'Холмогорский район',
-      cardImageLink: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
-    },
-    {
-      cardTitle: 'Байкал',
-      cardImageLink: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
-    }
-  ],
-  renderer (item, container) {
-    const newCard = new Card(item, config.cardTemplateID, handleCardClick, config);
-    const cardElement = newCard.create();
-    container.prepend(cardElement);
-  },
-}
-
 // images
 const headerLogo = new URL('../images/header__logo.svg', import.meta.url);
 const profileAvatar = new URL('../images/profile__avatar.jpg', import.meta.url);
-
-const userInfoElements = {
-  userName: config.userNameSelector,
-  userDescription: config.userDescriptionSelector,
-}

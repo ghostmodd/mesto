@@ -9,16 +9,23 @@
 
 <body class="page">
   <header class="header">
-    <img class="header__logo" src="<%=require('./images/header__logo.svg')%>" alt="Логотип приложения с надписью 'Mesto Russia'">
+    <img class="header__logo" src="<%=require('./images/header__logo.svg')%>"
+      alt="Логотип приложения с надписью 'Mesto Russia'">
   </header>
   <main class="main">
     <section class="profile">
       <div class="profile__content">
-        <img class="profile__avatar" src="<%=require('./images/profile__avatar.jpg')%>" alt="Изображение профиля пользователя">
+        <div class="profile__avatar-wrapper">
+          <div class="profile__avatar-background">
+            <button class="profile__btn-change-avatar button"></button>
+          </div>
+          <img class="profile__avatar" src="."
+            alt="Изображение профиля пользователя">
+        </div>
         <div class="profile__user-data">
-          <h1 class="profile__user-name anti-overflow">Жак-Ив Кусто</h1>
+          <h1 class="profile__user-name anti-overflow"></h1>
           <button class="profile__btn-edit-profile button" aria-label="Редактировать профиль" type="button"></button>
-          <p class="profile__about-user anti-overflow">Исследователь океана</p>
+          <p class="profile__about-user anti-overflow"></p>
         </div>
       </div>
       <button class="profile__btn-add-card button" aria-label="Добавить фотографию" type="button"></button>
@@ -31,7 +38,10 @@
             <button class="card__btn-delete-card button" aria-label="Удалить карточку" type="button"></button>
             <div class="card__info">
               <h2 class="card__title anti-overflow"></h2>
-              <button class="card__btn-like-card button" aria-label="Оценить фотографию" type="button"></button>
+              <div class="card__likes">
+                <button class="card__btn-like-card button" aria-label="Оценить фотографию" type="button"></button>
+                <p class="card__number-of-likes"></p>
+              </div>
             </div>
           </li>
         </template>
@@ -42,16 +52,16 @@
     <p class="footer__copyright">© 2020 Mesto Russia</p>
   </footer>
   <div class="popup popup_edit-profile" aria-label="Окно редактирования информации о пользователе">
-    <div class="popup__container">
+    <div class="popup__container popup__container_size_big">
       <form class="form form_edit-profile" name="edit-profile">
-        <h2 class="form__title">Редактировать профиль</h2>
+        <h2 class="form__title form__title_margins_medium">Редактировать профиль</h2>
         <input class="form__input form__input_type_user-name" name="userName" id="user-name-input" type="text"
-          aria-label="Поле для ввода имени пользователя" placeholder="Имя пользователя" value="username" minlength="2" maxlength="40"
-          required novalidate>
+          aria-label="Поле для ввода имени пользователя" placeholder="Имя пользователя" value="username" minlength="2"
+          maxlength="40" required novalidate>
         <span class="form__input-error user-name-input-error"></span>
-        <input class="form__input form__input_type_about-user" name="aboutUser" id='about-user-input' type="text"
-          aria-label="Поле для ввода информации о пользователе" placeholder="Информация о пользователе" value="about-user" minlength="2"
-          maxlength="200" required novaliadate>
+        <input class="form__input form__input_type_about-user" name="userDescription" id='about-user-input' type="text"
+          aria-label="Поле для ввода информации о пользователе" placeholder="Информация о пользователе"
+          value="about-user" minlength="2" maxlength="200" required novaliadate>
         <span class="form__input-error form__input-error_active about-user-input-error"></span>
         <button class="form__btn-submit button" type="submit">Сохранить</button>
         <button class="button button_type_close-popup" type="button" aria-label="Закрыть страницу"></button>
@@ -59,9 +69,9 @@
     </div>
   </div>
   <div class="popup popup_add-card" aria-label="Окно добавления фотокарточки">
-    <div class="popup__container">
+    <div class="popup__container popup__container_size_big">
       <form class="form form_add-card" name="add-card">
-        <h2 class="form__title">Новое место</h2>
+        <h2 class="form__title form__title_margins_medium">Новое место</h2>
         <input class="form__input form__input_type_card-title" name="cardTitle" id="card-title-input" type="text"
           placeholder="Название" aria-label="Поле для ввода названия места" minlength="2" maxlength="30" required
           novalidate>
@@ -81,6 +91,28 @@
       <figcaption class="card-zoom__caption"></figcaption>
       <button class="button button_type_close-popup" type="button" aria-label="Закрыть страницу"></button>
     </figure>
+  </div>
+  <div class="popup popup_confirm-delete-card" aria-label="Подтвердить удаление фотокарточки?">
+    <div class="popup__container popup__container_size_little">
+      <form class="form form_confirm-delete-card" name="confirm-delete-card">
+        <h2 class="form__title form__title_margins_low">Вы уверены?</h2>
+        <button class="form__btn-submit button" type="submit">Да</button>
+        <button class="button button_type_close-popup" type="button" aria-label="Закрыть страницу"></button>
+      </form>
+    </div>
+  </div>
+  <div class="popup popup_change-avatar" aria-label="Окно добавления фотокарточки">
+    <div class="popup__container popup__container_size_medium">
+      <form class="form form_change-avatar" name="change-avatar">
+        <h2 class="form__title form__title_margins_medium">Обновить аватар</h2>
+        <input class="form__input form__input_type_image-link" name="avatarImageLink" id="avatar-image-link-input"
+          type="url" placeholder="Ссылка на картинку" aria-label="Поле для ввода ссылки на изображение профиля" required
+          novalidate>
+        <span class="form__input-error avatar-image-link-input-error"></span>
+        <button class="form__btn-submit button" type="submit">Сохранить</button>
+        <button class="button button_type_close-popup" type="button" aria-label="Закрыть страницу"></button>
+      </form>
+    </div>
   </div>
 </body>
 

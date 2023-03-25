@@ -1,0 +1,10 @@
+.profile__btn-change-avatar {
+  border: none;
+  position: absolute;
+  top: 47px;
+  left: 47px;
+  width: 26px;
+  height: 26px;
+  background-color: rgba(0, 0, 0, 0);
+  background-image: url(../../../images/profile__btn-change-avatar.svg);
+}

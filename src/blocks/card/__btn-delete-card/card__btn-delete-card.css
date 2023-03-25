@@ -6,6 +6,7 @@
   height: 19px;
   background-image: url(../../../images/card__btn-delete-card.svg);
   border: none;
+  visibility: hidden;
 }
 
 .card__btn-delete-card:hover {

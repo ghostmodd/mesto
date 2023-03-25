@@ -1,45 +1,90 @@
 export class Card {
-  constructor ({ cardTitle, cardImageLink }, cardTemplate, handleCardClick, config) {
-    this._title = cardTitle;
-    this._image = cardImageLink;
+  constructor({ _id, name, link, likes, owner }, currentUserID, cardTemplate, handleCardClick, handleDeleteCard, handleLikeCard, config) {
+    this._userID = currentUserID;
+    this._cardID = _id;
+    this._title = name;
+    this._image = link;
+    this._likes = likes;
+    this._numberOfLikes = this._likes.length;
+    this._isLiked = this._checkIsLiked();
+    this._cardOwnerID = owner._id;
     this._template = cardTemplate;
-    this._config = config;
     this._handleCardClick = handleCardClick;
+    this._handleDeleteCard = handleDeleteCard;
+    this._handleLikeCard = handleLikeCard;
+    this._config = config;
+
+    this._card = this._getCardFromTemplate();
+    this._cardTitle = this._card.querySelector(this._config.cardTitleSelector);
+    this._buttonDeleteCard = this._card.querySelector('.card__btn-delete-card');
+    this._cardImage = this._card.querySelector(this._config.cardImageSelector);
+    this._buttonLikeCard = this._card.querySelector(this._config.cardBtnLikeCardSelector);
+    this._likesSignature = this._card.querySelector('.card__number-of-likes');
   }
 
-  _getCardFromTemplate () {
+  _getCardFromTemplate() {
     return document.querySelector(this._template).content.cloneNode(true);
   }
 
-  _toggleLike(evt) {
-    evt.target.classList.toggle(this._config.cardBtnLikeCardActiveted);
+  _handleLikeButton() {
+    if(this._isLiked) {
+      this._likesSignature.textContent = Number(this._numberOfLikes) + 1;
+    } else {
+      this._likesSignature.textContent = Number(this._numberOfLikes) - 1;
+    }
+    this._powerLikeButton();
   }
 
-  _deleteCard(evt) {
-    evt.target.closest(this._config.cardSelector).remove();
+  refreshLikesData({ likes }) {
+    this._likes = likes;
+    this._numberOfLikes = this._likes.length;
+    this._likesSignature.textContent = this._numberOfLikes;
+  }
+
+  _checkIsLiked() {
+    if (this._likes.some((user) => {
+      return this._userID === user._id;
+    })) {
+      return true;
+    }
+  }
+
+  _powerLikeButton() {
+    if (this._isLiked) {
+      this._buttonLikeCard.classList.add(this._config.cardBtnLikeCardActiveted);
+    } else {
+      this._buttonLikeCard.classList.remove(this._config.cardBtnLikeCardActiveted);
+    }
+  }
+
+  _powerDeleteCardButton() {
+    if (this._userID == this._cardOwnerID) {
+      this._buttonDeleteCard.classList.add('card__btn-delete-card_visible');
+    }
   }
 
   _addEventListeners() {
     this._card.querySelector(this._config.cardSelector).addEventListener('click', (evt) => {
-      if (evt.target.classList.contains(this._config.cardBtnLikeCard)) {
-        this._toggleLike(evt);
-      } else if (evt.target.classList.contains(this._config.cardBtnDeleteCard)) {
-        this._deleteCard(evt);
+      if (evt.target == this._buttonLikeCard) {
+        this._isLiked = !this._isLiked;
+        this._handleLikeButton();
+        this._handleLikeCard(this._cardID, this._isLiked);
+      } else if (evt.target == this._buttonDeleteCard) {
+        this._handleDeleteCard(evt, this._cardID);
       } else if (evt.target.classList.contains(this._config.cardImage)) {
         this._handleCardClick(evt.target, this._title);
       }
     });
   };
 
-  create () {
-    this._card = this._getCardFromTemplate();
-    const cardTitle = this._card.querySelector(this._config.cardTitleSelector);
-    const cardImage = this._card.querySelector(this._config.cardImageSelector);
+  create() {
+    this._cardTitle.textContent = this._title;
+    this._cardImage.src = this._image;
+    this._cardImage.alt = `Фотография: ${this._title}`;
+    this._likesSignature.textContent = this._numberOfLikes;
 
-    cardTitle.textContent = this._title;
-    cardImage.src = this._image;
-    cardImage.alt = `Фотография места: ${this._title}`;
-
+    this._powerDeleteCardButton();
+    this._powerLikeButton();
     this._addEventListeners();
     return this._card;
   }

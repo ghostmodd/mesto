@@ -3,7 +3,7 @@
   height: 19px;
   background-image: url(../../../images/cards__btn-like-card.svg);
   border: none;
-  margin-right: 20px;
+  margin-bottom: 3px;
 }
 
 .card__btn-like-card:hover {

@@ -1,0 +1,13 @@
+.profile__avatar-background {
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 46%;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: opacity .15s linear;
+}
+
+.profile__avatar-background:hover {
+  opacity: 1;
+}
