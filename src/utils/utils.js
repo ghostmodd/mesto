@@ -3,7 +3,7 @@ import {
   currentUserID
 } from '../pages/index.js'
 import {
-  userNameInput, userAboutInput, buttonEditProfile, buttonAddCard,
+  profileAvatar, userNameInput, userAboutInput, buttonEditProfile, buttonAddCard,
   formValidators, buttonChangeAvatar, cardList, config
 } from './constants.js'
 import { FormValidator } from "../components/FormValidator.js"

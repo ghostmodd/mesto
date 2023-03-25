@@ -1,7 +1,7 @@
 export {
   profile, userNameInput, userAboutInput,
   buttonEditProfile, cardList, buttonAddCard, formValidators,
-  buttonChangeAvatar, config
+  buttonChangeAvatar, profileAvatar, config
 }
 
 const cardList = {};
