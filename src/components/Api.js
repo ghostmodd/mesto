@@ -5,29 +5,29 @@ export class Api {
   }
 
   _getError(res) {
-    if(!res.status) {
+    if(!res.ok) {
       return Promise.reject(`Ошибка: ${res.status}`);
     }
   }
 
   _getJSON(res) {
-    if (res.status) {
+    if (res.ok) {
       return res.json();
     }
-    this._getError(res);
+    return this._getError(res);
   }
 
   getProfileData() {
     return fetch(`${this._baseURL}/users/me`, {
       headers: this._headers
     }).then(res => {
-      return this._getJSON(res);
-    }).catch(err => {
-      console.log(err);
-    });
+      if(res.ok) {
+        return this._getJSON(res);
+      }
+    })
   }
 
-  editProfileData(userName, userDescription, submitButton) {
+  editProfileData(userName, userDescription) {
     return fetch(`${this._baseURL}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
@@ -36,27 +36,23 @@ export class Api {
         about: `${userDescription}`
       })
     }).then(res => {
-      this._getError(res);
-    }).catch(err => {
-      console.log(err);
-    }).finally(() => {
-      submitButton.textContent = 'Cохранить';
-    });
+      if(res.ok) {
+        return this._getJSON(res);
+      }
+    })
   }
 
   getInitialCardsData() {
     return fetch(`${this._baseURL}/cards`, {
       headers: this._headers
     }).then(res => {
-      return this._getJSON(res);
-    }).catch(err => {
-      console.log(err);
-    }).then(res => {
-      return res.reverse();
-    });
+      if(res.ok) {
+        return this._getJSON(res);
+      }
+    })
   }
 
-  addCard({ cardTitle, cardImageLink }, submitButton) {
+  addCard({ cardTitle, cardImageLink }) {
     return fetch(`${this._baseURL}/cards`, {
       method: 'POST',
       headers: this._headers,
@@ -65,25 +61,19 @@ export class Api {
         link: `${cardImageLink}`
       })
     }).then(res => {
-      return this._getJSON(res);
-    }).catch(err => {
-      console.log(err);
-    }).finally(() => {
-      submitButton.textContent = 'Создать';
-    });
+      if(res.ok) {
+        return this._getJSON(res);
+      }
+    })
   }
 
-  deleteCard(cardID, submitButton) {
+  deleteCard(cardID) {
     return fetch(`${this._baseURL}/cards/${cardID}`, {
       method: 'DELETE',
       headers: this._headers
     }).then(res => {
-      this._getError(res);
-    }).catch(err => {
-      console.log(err);
-    }).finally(() => {
-      submitButton.textContent = 'Да';
-    });
+      return this._getError(res);
+    })
   }
 
   likeCard(cardID) {
@@ -91,10 +81,10 @@ export class Api {
       method: 'PUT',
       headers: this._headers
     }).then(res => {
-      return this._getJSON(res);
-    }).catch(err => {
-      console.log(err);
-    });
+      if(res.ok) {
+        return this._getJSON(res);
+      }
+    })
   }
 
   dislikeCard(cardID) {
@@ -102,13 +92,13 @@ export class Api {
       method: 'DELETE',
       headers: this._headers
     }).then(res => {
-      return this._getJSON(res);
-    }).catch(err => {
-      console.log(err);
-    });
+      if(res.ok) {
+        return this._getJSON(res);
+      }
+    })
   }
 
-  changeAvatar(avatarSrc, submitButton) {
+  changeAvatar(avatarSrc) {
     return fetch(`${this._baseURL}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
@@ -117,10 +107,6 @@ export class Api {
       })
     }).then(res => {
       return this._getError(res);
-    }).catch(err => {
-      console.log(err);
-    }).finally(() => {
-      submitButton.textContent = 'Сохранить';
-    });
+    })
   }
 }

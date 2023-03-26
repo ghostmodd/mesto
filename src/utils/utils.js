@@ -4,7 +4,7 @@ import {
 } from '../pages/index.js'
 import {
   profileAvatar, userNameInput, userAboutInput, buttonEditProfile, buttonAddCard,
-  formValidators, buttonChangeAvatar, cardList, config
+  formValidators, buttonChangeAvatar, config
 } from './constants.js'
 import { FormValidator } from "../components/FormValidator.js"
 import { Card } from "../components/Card.js"
@@ -33,71 +33,84 @@ function addValuePopupEditProfile() {
   userAboutInput.value = userDescription;
 };
 
-const handleEditProfile = function (evt, {userName, userDescription}, submitButton) {
+const handleEditProfile = function (evt, {userName, userDescription}) {
   evt.preventDefault();
-  submitButton.textContent = 'Сохранение...';
-  api.editProfileData(userName, userDescription, submitButton).then(() => {
-    userInfo.setUserInfo(userName, userDescription);
-  }).then(() => {
+  popupEditProfile.changeSubmitButtonText('Сохранение...');
+  api.editProfileData(userName, userDescription).then(res => {
+    userInfo.setUserInfo(res);
+  }).catch(err => {
+    console.log(err);
+  }).finally(() => {
+    popupEditProfile.changeSubmitButtonText('Сохранить');
     popupEditProfile.closePopup();
   });
 }
 
-const handleAddCard = function (evt, newCardInfo, submitButton) {
+const handleAddCard = function (evt, newCardInfo) {
   evt.preventDefault();
-  submitButton.textContent = 'Создание...';
-  api.addCard(newCardInfo, submitButton).then(cardInfo => {
-    cardSection.addItem(cardInfo);
-  }).then(() => {
+  popupAddCard.changeSubmitButtonText('Создание...');
+  api.addCard(newCardInfo).then(res => {
+    cardSection.addItem(res);
+  }).catch(err => {
+    console.log(err);
+  }).finally(() => {
+    popupAddCard.changeSubmitButtonText('Создать');
     popupAddCard.closePopup();
   });
 }
-const cardSectionRenderer = function (item, container) {
+
+const cardSectionRenderer = function (item) {
   const newCard = new Card(item, currentUserID, config.cardTemplateID, handleCardClick, handleDeleteCard, handleLikeCard, config);
   const cardElement = newCard.create();
-  cardList[newCard._cardID] = newCard;
-  container.prepend(cardElement);
+  return cardElement;
 }
 
-const handleDeleteCard = function (evt, cardID) {
+const handleDeleteCard = function (deleteCard, cardID) {
   const data = {
-    cardElement: evt.target.closest(this._config.cardSelector),
+    deleteCard: deleteCard,
     cardID: cardID,
   }
   popupConfirmDeleteCard.openPopup(data);
 }
 
-const handleConfirmDelete = function(evt, { cardElement, cardID }, submitButton) {
+const handleConfirmDelete = function(evt, { deleteCard, cardID }) {
   evt.preventDefault();
-  submitButton.textContent = 'Удаление...';
-  api.deleteCard(cardID, submitButton).then(() => {
-    cardElement.remove();
+  popupConfirmDeleteCard.changeSubmitButtonText('Удаление...');
+  api.deleteCard(cardID).then(() => {
+    deleteCard();
+  }).catch(err => {
+    console.log(err)
+  }).finally(() => {
+    popupConfirmDeleteCard.changeSubmitButtonText('Да');
     popupConfirmDeleteCard.closePopup();
   });
 }
 
-const handleLikeCard = function (cardID, isLiked) {
+const handleLikeCard = function (cardID, isLiked, refreshLikesData) {
   if (isLiked) {
-    api.likeCard(cardID).then((res) => {
-      return res;
-    }).then(newData => {
-      cardList[cardID].refreshLikesData(newData);
+    api.likeCard(cardID).then(newData => {
+      refreshLikesData(newData);
+    }).catch(err => {
+      console.log(err);
     });
   } else {
-    api.dislikeCard(cardID).then((res) => {
-      return res;
-    }).then(newData => {
-      cardList[cardID].refreshLikesData(newData);
+    api.dislikeCard(cardID).then(newData => {
+      refreshLikesData(newData);
+    }).catch(err => {
+      console.log(err);
     });
   }
 }
 
-const handleChangeAvatar = function (evt, avatarSrc, submitButton) {
+const handleChangeAvatar = function (evt, avatarSrc) {
   evt.preventDefault();
-  submitButton.textContent = 'Сохранение...';
-  api.changeAvatar(avatarSrc.avatarImageLink, submitButton).then(() => {
-    userInfo.changeAvatar(avatarSrc.avatarImageLink);
-  }).then(() => {
+  popupChangeAvatar.changeSubmitButtonText('Сохранение...');
+  api.changeAvatar(avatarSrc.avatarImageLink).then(() => {
+    userInfo.changeAvatar({ avatar: avatarSrc.avatarImageLink });
+  }).catch(err => {
+    console.log(err);
+  }).finally(() => {
+    popupChangeAvatar.changeSubmitButtonText('Сохранить');
     popupChangeAvatar.closePopup();
   });
 }

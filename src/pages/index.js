@@ -39,9 +39,13 @@ const api = new Api({
 });
 api.getProfileData().then(res => {
   currentUserID = res._id;
-  userInfo.initUser(res.name, res.about, res.avatar);
+  userInfo.initUser(res);
 }).then(() => {
   api.getInitialCardsData().then(initialCards => {
-    cardSection.renderItems(initialCards);
+    cardSection.renderItems(initialCards.reverse());
+  }).catch(err => {
+    console.log(err);
   });
+}).catch(err => {
+  console.log(err);
 })

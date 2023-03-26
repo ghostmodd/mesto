@@ -13,6 +13,10 @@ export class PopupWithConfirmation extends Popup {
     this._data = data;
   }
 
+  changeSubmitButtonText (text) {
+    this._submitButton.textContent = text;
+  }
+
   setEventListeners() {
     super.setEventListeners();
     this._form.addEventListener('submit', (evt) => this._handleConfirm(evt, this._data, this._submitButton));

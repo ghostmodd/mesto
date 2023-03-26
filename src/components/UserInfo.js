@@ -12,17 +12,17 @@ export class UserInfo {
     };
   }
 
-  setUserInfo (userName, userDescription) {
-    this._userNameElement.textContent = userName;
-    this._userDescriptionElement.textContent = userDescription;
+  setUserInfo ({ name, about }) {
+    this._userNameElement.textContent = name;
+    this._userDescriptionElement.textContent = about;
   }
 
-  changeAvatar (userAvatar) {
-    this._userAvatarElement.src = userAvatar;
+  changeAvatar ({ avatar }) {
+    this._userAvatarElement.src = avatar;
   }
 
-  initUser (userName, userDescription, userAvatar) {
-    this.setUserInfo(userName, userDescription);
-    this.changeAvatar(userAvatar);
+  initUser (userData) {
+    this.setUserInfo(userData);
+    this.changeAvatar(userData);
   }
 }

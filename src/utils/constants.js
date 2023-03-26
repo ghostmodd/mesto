@@ -1,10 +1,9 @@
 export {
   profile, userNameInput, userAboutInput,
-  buttonEditProfile, cardList, buttonAddCard, formValidators,
+  buttonEditProfile, buttonAddCard, formValidators,
   buttonChangeAvatar, profileAvatar, config
 }
 
-const cardList = {};
 // DATA and GENERAL SELECTORS
 // profile varies
 const profile = document.querySelector('.profile');

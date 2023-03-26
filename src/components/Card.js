@@ -15,6 +15,7 @@ export class Card {
     this._config = config;
 
     this._card = this._getCardFromTemplate();
+    this._cardElement = this._card.querySelector('.card');
     this._cardTitle = this._card.querySelector(this._config.cardTitleSelector);
     this._buttonDeleteCard = this._card.querySelector('.card__btn-delete-card');
     this._cardImage = this._card.querySelector(this._config.cardImageSelector);
@@ -24,21 +25,6 @@ export class Card {
 
   _getCardFromTemplate() {
     return document.querySelector(this._template).content.cloneNode(true);
-  }
-
-  _handleLikeButton() {
-    if(this._isLiked) {
-      this._likesSignature.textContent = Number(this._numberOfLikes) + 1;
-    } else {
-      this._likesSignature.textContent = Number(this._numberOfLikes) - 1;
-    }
-    this._powerLikeButton();
-  }
-
-  refreshLikesData({ likes }) {
-    this._likes = likes;
-    this._numberOfLikes = this._likes.length;
-    this._likesSignature.textContent = this._numberOfLikes;
   }
 
   _checkIsLiked() {
@@ -57,20 +43,30 @@ export class Card {
     }
   }
 
+  refreshLikesData({ likes }) {
+    this._likes = likes;
+    this._numberOfLikes = this._likes.length;
+    this._likesSignature.textContent = this._numberOfLikes;
+    this._powerLikeButton();
+  }
+
   _powerDeleteCardButton() {
     if (this._userID == this._cardOwnerID) {
       this._buttonDeleteCard.classList.add('card__btn-delete-card_visible');
     }
   }
 
+  _deleteCard () {
+    this._cardElement.remove();
+  }
+
   _addEventListeners() {
     this._card.querySelector(this._config.cardSelector).addEventListener('click', (evt) => {
       if (evt.target == this._buttonLikeCard) {
         this._isLiked = !this._isLiked;
-        this._handleLikeButton();
-        this._handleLikeCard(this._cardID, this._isLiked);
+        this._handleLikeCard(this._cardID, this._isLiked, this.refreshLikesData.bind(this));
       } else if (evt.target == this._buttonDeleteCard) {
-        this._handleDeleteCard(evt, this._cardID);
+        this._handleDeleteCard(this._deleteCard.bind(this), this._cardID);
       } else if (evt.target.classList.contains(this._config.cardImage)) {
         this._handleCardClick(evt.target, this._title);
       }
