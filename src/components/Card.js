@@ -15,12 +15,12 @@ export class Card {
     this._config = config;
 
     this._card = this._getCardFromTemplate();
-    this._cardElement = this._card.querySelector('.card');
+    this._cardElement = this._card.querySelector(this._config.cardSelector);
     this._cardTitle = this._card.querySelector(this._config.cardTitleSelector);
-    this._buttonDeleteCard = this._card.querySelector('.card__btn-delete-card');
+    this._buttonDeleteCard = this._card.querySelector(this._config.cardBtnDeleteCardSelector);
     this._cardImage = this._card.querySelector(this._config.cardImageSelector);
     this._buttonLikeCard = this._card.querySelector(this._config.cardBtnLikeCardSelector);
-    this._likesSignature = this._card.querySelector('.card__number-of-likes');
+    this._likesSignature = this._card.querySelector(this._config.cardNumberOfLikesSelector);
   }
 
   _getCardFromTemplate() {
@@ -52,7 +52,7 @@ export class Card {
 
   _powerDeleteCardButton() {
     if (this._userID == this._cardOwnerID) {
-      this._buttonDeleteCard.classList.add('card__btn-delete-card_visible');
+      this._buttonDeleteCard.classList.add(this._config.cardBtnDeleteCardVisible);
     }
   }
 

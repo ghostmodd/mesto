@@ -35,9 +35,11 @@ const config = {
   cardImage: 'card__image',
   cardBtnLikeCardSelector: '.card__btn-like-card',
   cardBtnLikeCard: 'card__btn-like-card',
+  cardNumberOfLikesSelector: '.card__number-of-likes',
   cardBtnLikeCardActiveted: 'card__btn-like-card_activated',
   cardBtnDeleteCardSelector: '.card__btn-delete-card',
   cardBtnDeleteCard: 'card__btn-delete-card',
+  cardBtnDeleteCardVisible: 'card__btn-delete-card_visible',
 
   // popup
   popupOpenedClass: 'popup_opened',

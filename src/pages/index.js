@@ -37,15 +37,13 @@ const api = new Api({
     'Content-Type': 'application/json'
   }
 });
-api.getProfileData().then(res => {
-  currentUserID = res._id;
-  userInfo.initUser(res);
-}).then(() => {
-  api.getInitialCardsData().then(initialCards => {
-    cardSection.renderItems(initialCards.reverse());
-  }).catch(err => {
-    console.log(err);
-  });
+Promise.all([
+api.getProfileData(),
+api.getInitialCardsData() ])
+.then(([info, initialCards])=>{
+  currentUserID = info._id;
+  userInfo.initUser(info);
+  cardSection.renderItems(initialCards.reverse());
 }).catch(err => {
   console.log(err);
-})
+});

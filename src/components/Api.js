@@ -21,9 +21,7 @@ export class Api {
     return fetch(`${this._baseURL}/users/me`, {
       headers: this._headers
     }).then(res => {
-      if(res.ok) {
-        return this._getJSON(res);
-      }
+      return this._getJSON(res);
     })
   }
 
@@ -36,9 +34,7 @@ export class Api {
         about: `${userDescription}`
       })
     }).then(res => {
-      if(res.ok) {
-        return this._getJSON(res);
-      }
+      return this._getJSON(res);
     })
   }
 
@@ -46,9 +42,7 @@ export class Api {
     return fetch(`${this._baseURL}/cards`, {
       headers: this._headers
     }).then(res => {
-      if(res.ok) {
-        return this._getJSON(res);
-      }
+      return this._getJSON(res);
     })
   }
 
@@ -61,9 +55,7 @@ export class Api {
         link: `${cardImageLink}`
       })
     }).then(res => {
-      if(res.ok) {
-        return this._getJSON(res);
-      }
+      return this._getJSON(res);
     })
   }
 
@@ -81,9 +73,7 @@ export class Api {
       method: 'PUT',
       headers: this._headers
     }).then(res => {
-      if(res.ok) {
-        return this._getJSON(res);
-      }
+      return this._getJSON(res);
     })
   }
 
@@ -92,9 +82,7 @@ export class Api {
       method: 'DELETE',
       headers: this._headers
     }).then(res => {
-      if(res.ok) {
-        return this._getJSON(res);
-      }
+      return this._getJSON(res);
     })
   }
 
